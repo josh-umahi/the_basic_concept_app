@@ -1,0 +1,23 @@
+[
+    {
+        "id": "105",
+        "title": "Candy Crayon Collar / Green",
+        "imageURL": "assets/images/e.jpg",
+        "price": 19,
+        "category": "collar"
+    },
+    {
+        "id": "106",
+        "title": "Central Park Saddle Black Collar",
+        "imageURL": "assets/images/f.jpg",
+        "price": 54,
+        "category": "collar"
+    },
+    {
+        "id": "107",
+        "title": "Candy Crayon Collar / Yellow",
+        "imageURL": "assets/images/g.jpg",
+        "price": 19,
+        "category": "collar"
+    }
+]

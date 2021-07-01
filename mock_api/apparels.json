@@ -1,0 +1,30 @@
+[
+    {
+        "id": "101",
+        "title": "Organic Raglan Baseball Sleeve / Black",
+        "imageURL": "assets/images/a.jpg",
+        "price": 26,
+        "category": "apparel"
+    },
+    {
+        "id": "102",
+        "title": "Urban Jacket / Khaki",
+        "imageURL": "assets/images/b.jpg",
+        "price": 55,
+        "category": "apparel"
+    },
+    {
+        "id": "103",
+        "title": "Greenery Dress",
+        "imageURL": "assets/images/c.jpg",
+        "price": 58,
+        "category": "apparel"
+    },
+    {
+        "id": "104",
+        "title": "Pearl Trim Sleeveless T-Shirt / Pink",
+        "imageURL": "assets/images/d.jpg",
+        "price": 39,
+        "category": "apparel"
+    }
+]

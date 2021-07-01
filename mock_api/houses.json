@@ -1,0 +1,16 @@
+[
+    {
+        "id": "112",
+        "title": "Porvoo House",
+        "imageURL": "assets/images/l.jpg",
+        "price": 440,
+        "category": "house"
+    },
+    {
+        "id": "113",
+        "title": "Choco Tent / Soft Beige",
+        "imageURL": "assets/images/m.jpg",
+        "price": 240,
+        "category": "house"
+    }
+]

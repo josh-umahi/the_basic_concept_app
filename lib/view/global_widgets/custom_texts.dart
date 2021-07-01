@@ -7,14 +7,13 @@ class HeaderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 33, bottom: 22),
+      margin: const EdgeInsets.only(top: 30, bottom: 22),
       child: Text(
         text,
         maxLines: 1,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 24.0,
-          fontFamily: "Nunito",
+          fontSize: 24,
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -32,6 +31,7 @@ class ProductTitle extends StatelessWidget {
     return Text(
       text,
       maxLines: maxLines ?? 2,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         color: Colors.black,
         fontSize: 20,
