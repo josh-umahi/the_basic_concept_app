@@ -8,7 +8,7 @@ part 'widgets/cart_item.dart';
 part 'widgets/cart_summary.dart';
 part 'widgets/nav_to_checkout_button.dart';
 
-const heightOfButtonPlusBottomMargin = 80.0;
+const heightOfButtonPlusBottomMargin = 85.0;
 
 class CartScreen extends StatelessWidget {
   @override

@@ -31,7 +31,7 @@ class _HeaderTabBarState extends State<HeaderTabBar>
       indicatorColor: Colors.transparent,
       unselectedLabelColor: ourDarkGrey,
       labelPadding: const EdgeInsets.symmetric(
-        horizontal: ourPaddingHorizontal,
+        horizontal: ourPaddingHorizontal * 0.75,
       ),
       isScrollable: true,
       tabs: _buildTabs(),

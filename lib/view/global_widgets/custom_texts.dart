@@ -7,7 +7,7 @@ class HeaderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 30, bottom: 22),
+      margin: const EdgeInsets.only(top: 30, bottom: 15),
       child: Text(
         text,
         maxLines: 1,

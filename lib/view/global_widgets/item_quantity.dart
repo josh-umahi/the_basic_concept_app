@@ -2,29 +2,34 @@ import 'package:flutter/material.dart';
 
 import '../../constant.dart';
 
-final widthOfEach = 45.0;
-final height = 40.0;
+final customBorders = Border.all(
+  width: 0.75,
+  color: ourLightGrey,
+);
 
 class ItemQuantity extends StatelessWidget {
+  final double width;
+  const ItemQuantity({required this.width});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      decoration: BoxDecoration(
-        color: ourLightGrey,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          width: 0.75,
-          color: ourLightGrey,
-        ),
-      ),
+      height: 40,
+      width: width,
       child: Row(
         children: [
-          QuantityButton("\u2013"),
+          QuantityButton(
+            unicodeString: "\u2013",
+            widthOfParent: width,
+            isOnLeft: true,
+          ),
           Container(
-            width: widthOfEach,
+            width: 0.4 * width,
             alignment: Alignment.center,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: customBorders,
+            ),
             child: Text(
               "2",
               textAlign: TextAlign.center,
@@ -34,7 +39,10 @@ class ItemQuantity extends StatelessWidget {
               ),
             ),
           ),
-          QuantityButton("\u002b"),
+          QuantityButton(
+            unicodeString: "\u002b",
+            widthOfParent: width,
+          ),
         ],
       ),
     );
@@ -43,14 +51,36 @@ class ItemQuantity extends StatelessWidget {
 
 class QuantityButton extends StatelessWidget {
   final String unicodeString;
-  const QuantityButton(this.unicodeString);
+  final double widthOfParent;
+  final bool isOnLeft;
+  const QuantityButton({
+    required this.unicodeString,
+    required this.widthOfParent,
+    this.isOnLeft = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widthOfEach,
-      alignment: Alignment.center,
-      child: GestureDetector(
+    final width = 0.3 * widthOfParent;
+    final borderRadius = Radius.circular(5);
+
+    return GestureDetector(
+      child: Container(
+        width: width,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: ourLightGrey,
+          borderRadius: isOnLeft
+              ? BorderRadius.only(
+                  topLeft: borderRadius,
+                  bottomLeft: borderRadius,
+                )
+              : BorderRadius.only(
+                  topRight: borderRadius,
+                  bottomRight: borderRadius,
+                ),
+          border: customBorders,
+        ),
         child: Text(
           unicodeString,
           style: TextStyle(
@@ -62,66 +92,3 @@ class QuantityButton extends StatelessWidget {
     );
   }
 }
-
-
-// final widthOfEach = 50.0;
-// final height = 40.0;
-
-// class ItemQuantity extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: height,
-//       decoration: BoxDecoration(
-//         color: ourLightGrey,
-//         borderRadius: BorderRadius.circular(5),
-//         border: Border.all(
-//           width: 0.75,
-//           color: ourLightGrey,
-//         ),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         children: [
-//           QuantityButton("\u2013"),
-//           Container(
-//             width: widthOfEach,
-//             alignment: Alignment.center,
-//             color: Colors.white,
-//             child: Text(
-//               "2",
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colors.black,
-//                 fontSize: 16,
-//               ),
-//             ),
-//           ),
-//           QuantityButton("\u002b"),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class QuantityButton extends StatelessWidget {
-//   final String unicodeString;
-//   const QuantityButton(this.unicodeString);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: widthOfEach,
-//       alignment: Alignment.center,
-//       child: GestureDetector(
-//         child: Text(
-//           unicodeString,
-//           style: TextStyle(
-//             color: Colors.black,
-//             fontSize: 16,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

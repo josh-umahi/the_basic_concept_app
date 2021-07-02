@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 import '../../global_widgets/custom_texts.dart';
-import '../../global_widgets/item_quantity.dart';
+import 'tabs/specific_products_tab.dart';
 
 part 'widgets/header_tab_bar.dart';
-part 'widgets/shop_item.dart';
 
 class ShopScreen extends StatelessWidget {
   @override
@@ -37,17 +36,9 @@ class ShopScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderText("Top Picks"),
-            Expanded(
-              child: ListView(
-                children: [
-                  ShopItem(),
-                  ShopItem(),
-                  ShopItem(),
-                  ShopItem(),
-                  ShopItem(),
-                ],
-              ),
-            ),
+            HeaderTabBar(),
+            SizedBox(height: 10),
+            SpecificProductsTab(),
           ],
         ),
       ),

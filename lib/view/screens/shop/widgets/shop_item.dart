@@ -1,9 +1,13 @@
-part of '../shop_screen.dart';
+import 'package:flutter/material.dart';
+
+import '../../../global_widgets/custom_texts.dart';
+import '../../../global_widgets/item_quantity.dart';
 
 class ShopItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,17 +35,19 @@ class ShopItem extends StatelessWidget {
             ),
           ),
           SizedBox(width: 16),
-          Container(
-            height: 170,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 12),
-                ProductTitle("Greenery Dress", maxLines: 3),
-                ProductPrice("\$36.00"),
-                Spacer(),
-                ItemQuantity(),
-              ],
+          Expanded(
+            child: Container(
+              height: 170,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 12),
+                  ProductTitle("Greenery Dress", maxLines: 3),
+                  ProductPrice("\$36.00"),
+                  Spacer(),
+                  ItemQuantity(width: 140),
+                ],
+              ),
             ),
           ),
         ],

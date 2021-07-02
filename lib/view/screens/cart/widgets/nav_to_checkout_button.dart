@@ -4,13 +4,13 @@ class NavToCheckoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 0.35 * heightOfButtonPlusBottomMargin,
+      bottom: 0.4 * heightOfButtonPlusBottomMargin,
       left: 40,
       right: 40,
       child: ElevatedButton(
         onPressed: () {},
         child: Container(
-          height: heightOfButtonPlusBottomMargin * 0.65,
+          height: heightOfButtonPlusBottomMargin * 0.6,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
