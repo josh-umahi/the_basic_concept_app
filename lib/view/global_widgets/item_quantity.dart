@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../constant.dart';
 
-final customBorders = Border.all(
-  width: 0.75,
-  color: ourLightGrey,
-);
+Border customBorders([Color color = ourLightGrey]) {
+  return Border.all(
+    width: 0.75,
+    color: color,
+  );
+}
 
 class ItemQuantity extends StatelessWidget {
   final double width;
@@ -28,7 +30,7 @@ class ItemQuantity extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: customBorders,
+              border: customBorders(),
             ),
             child: Text(
               "2",
@@ -79,7 +81,7 @@ class QuantityButton extends StatelessWidget {
                   topRight: borderRadius,
                   bottomRight: borderRadius,
                 ),
-          border: customBorders,
+          border: customBorders(),
         ),
         child: Text(
           unicodeString,
