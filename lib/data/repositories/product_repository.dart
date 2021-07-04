@@ -4,10 +4,10 @@ import "package:http/http.dart" as http;
 import '../models/product.dart';
 
 class ProductRepository {
-  final _baseUrl = "77539fc7-3663-4efa-80b0-e99f51c46461.mock.pstmn.io";
+  final _baseUrl = "the-basic-concept-api.herokuapp.com";
 
   Future<List<Product>> getApparels() async {
-    final uri = Uri.https(_baseUrl, "/v1/apparels");
+    final uri = Uri.https(_baseUrl, "/apparels");
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -26,7 +26,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getBeds() async {
-    final uri = Uri.https(_baseUrl, "/v1/beds");
+    final uri = Uri.https(_baseUrl, "/beds");
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -45,7 +45,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getBowls() async {
-    final uri = Uri.https(_baseUrl, "/v1/bowls");
+    final uri = Uri.https(_baseUrl, "/bowls");
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -64,7 +64,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getCollars() async {
-    final uri = Uri.https(_baseUrl, "/v1/collars");
+    final uri = Uri.https(_baseUrl, "/collars");
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -83,7 +83,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getHouses() async {
-    final uri = Uri.https(_baseUrl, "/v1/houses");
+    final uri = Uri.https(_baseUrl, "/houses");
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;

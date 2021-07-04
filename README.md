@@ -11,5 +11,4 @@ These include:
 - flutter_bloc: for state management
 - http: for making HTTP requests
 
-The backend consists of a JSON API created and host from (Postman),  a collaboration platform for API development. To create simple APIs like this, head over to their website at [postman.com](https://www.postman.com)
-
+The backend consists of a JSON API created with [json-server](https://github.com/typicode/json-server) and hosted on [Heroku](https://www.heroku.com/), a developers best friend for quickly deploying servers and much more.  
