@@ -30,17 +30,24 @@ class ShopScreen extends StatelessWidget {
           AppBarSideSizedBox,
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: ourPaddingHorizontal),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeaderText("Top Picks"),
-            HeaderTabBar(),
-            SizedBox(height: 10),
-            SpecificProductsTab(),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal,
+            ),
+            child: HeaderText("Top Picks"),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal * 0.4,
+            ),
+            child: HeaderTabBar(),
+          ),
+          SizedBox(height: 10),
+          SpecificProductsTab(),
+        ],
       ),
     );
   }

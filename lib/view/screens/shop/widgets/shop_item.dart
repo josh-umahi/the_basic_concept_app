@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constant.dart';
 import '../../../global_widgets/custom_texts.dart';
 import '../../../global_widgets/item_quantity.dart';
 
@@ -9,6 +10,9 @@ class ShopItem extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal,
+            ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
