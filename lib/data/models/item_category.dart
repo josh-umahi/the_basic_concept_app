@@ -1,5 +1,3 @@
-part of 'product.dart';
-
 enum ItemCategory {
   APPAREL,
   BED,

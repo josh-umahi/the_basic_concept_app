@@ -20,7 +20,7 @@ class _HeaderTabBarState extends State<HeaderTabBar>
   void initState() {
     super.initState();
     _tabController =
-        TabController(initialIndex: 0, length: tabTitles.length, vsync: this);
+        TabController(initialIndex: 1, length: tabTitles.length, vsync: this);
   }
 
   @override

@@ -1,11 +1,14 @@
-part 'item_category.dart';
+import 'package:equatable/equatable.dart';
 
-class Product {
+import 'item_category.dart';
+
+class Product extends Equatable {
   final String id;
   final String title;
   final String imageURL;
   final double priceAsDouble;
   final String categoryAsStr;
+  int quantity;
 
   Product({
     required this.id,
@@ -13,6 +16,7 @@ class Product {
     required this.imageURL,
     required this.priceAsDouble,
     required this.categoryAsStr,
+    this.quantity = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -20,7 +24,7 @@ class Product {
       final id = json["id"];
       final title = json["title"];
       final imageURL = json["imageURL"];
-      final priceAsDouble = json["price"] as double;
+      final priceAsDouble = json["price"].toDouble();
       final categoryAsStr = json["category"];
 
       return Product(
@@ -39,6 +43,16 @@ class Product {
     return priceAsDouble.toStringAsFixed(2);
   }
 
+  void increaseQuantity() {
+    quantity += 1;
+  }
+
+  void decreaseQuantity() {
+    if (quantity != 0) {
+      quantity -= 1;
+    }
+  }
+
   ItemCategory get category {
     switch (categoryAsStr) {
       case "apparel":
@@ -52,10 +66,14 @@ class Product {
       case "house":
         return ItemCategory.HOUSE;
       default:
-        print("The default was reached in 'ItemCategory get category'");
+        print(
+            "The default was reached in 'ItemCategory get category' for product with id: $id");
         return ItemCategory.Null;
     }
   }
+
+  @override
+  List<Object> get props => [id];
 
   @override
   String toString() {

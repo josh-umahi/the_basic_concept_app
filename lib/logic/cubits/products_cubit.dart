@@ -1,13 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/repositories/product_repository.dart';
 import '../../data/models/product.dart';
+import '../../data/models/item_category.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  final _bookRepository = ProductRepository();
+  final _productRepository = ProductRepository();
 
   ProductsCubit() : super(ProductsInitial());
 
@@ -18,17 +20,18 @@ class ProductsCubit extends Cubit<ProductsState> {
       final List<Product> products;
       switch (category) {
         case ItemCategory.APPAREL:
-          products = await _bookRepository.getApparels();
+          products = await _productRepository.getApparels();
           break;
         case ItemCategory.BOWL:
-          products = await _bookRepository.getBowls();
+          products = await _productRepository.getBowls();
           break;
         case ItemCategory.COLLAR:
-          products = await _bookRepository.getCollars();
+          products = await _productRepository.getCollars();
           break;
         default:
           products = [];
-          print("The default was reached in getProducts method of ProductsCubit");
+          print(
+              "The default was reached in getProducts method of ProductsCubit");
           break;
       }
       emit(ProductsLoaded(products));
@@ -41,14 +44,8 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(ProductsLoading());
 
     try {
-      final products = await Future.wait([
-        _bookRepository.getBeds(),
-        _bookRepository.getHouses(),
-      ]);
-      emit(ProductsLoaded([
-        ...products[0],
-        ...products[1],
-      ]));
+      final products = await _productRepository.getBedsAndHouses();
+      emit(ProductsLoaded(products));
     } catch (e) {
       emit(ProductsError(e));
     }
