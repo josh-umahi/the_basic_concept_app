@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_basic_concept_app/logic/cubits/products_cubit.dart';
 
 import '../../../constant.dart';
 import '../../global_widgets/custom_texts.dart';
 import 'tabs/specific_products_tab.dart';
 import '../../../data/models/item_category.dart';
+import '../../../logic/cubits/products_cubit.dart';
 
 part 'widgets/header_tab_bar.dart';
 
@@ -35,27 +35,31 @@ class ShopScreen extends StatelessWidget {
       ),
       body: BlocProvider<ProductsCubit>(
         create: (_) => ProductsCubit()..getProducts(ItemCategory.APPAREL),
-        child: BlocBuilder<SubjectBloc, SubjectState>(
+        child: BlocBuilder<ProductsCubit, ProductsState>(
           builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: ourPaddingHorizontal,
+            if (state is ProductsLoaded) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: ourPaddingHorizontal,
+                    ),
+                    child: HeaderText(state.headerTitle),
                   ),
-                  child: HeaderText("Top Picks"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: ourPaddingHorizontal * 0.4,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: ourPaddingHorizontal * 0.4,
+                    ),
+                    child: HeaderTabBar(),
                   ),
-                  child: HeaderTabBar(),
-                ),
-                SizedBox(height: 10),
-                SpecificProductsTab(),
-              ],
-            );
+                  SizedBox(height: 10),
+                  SpecificProductsTab(),
+                ],
+              );
+            } else {
+              return Container();
+            }
           },
         ),
       ),

@@ -7,22 +7,55 @@ import '../lib/data/models/item_category.dart';
 import '../lib/data/repositories/product_repository.dart';
 
 void main() {
-  group("ProductsCubit", () {
+  group("ProductsCubit: ", () {
     ProductsCubit? productsCubit;
-    List<Product>? apparels;
+    List<Product>? apparels, bedsandHouses, bowls, collars;
 
     setUp(() async {
       productsCubit = ProductsCubit();
       apparels = await ProductRepository().getApparels();
+      bedsandHouses = await ProductRepository().getBedsAndHouses();
+      bowls = await ProductRepository().getBowls();
+      collars = await ProductRepository().getCollars();
     });
 
     blocTest<ProductsCubit, ProductsState>(
-      "testing method getProducts with ItemCategory.APPAREL",
+      "getProducts(ItemCategory.APPAREL)",
       build: () => productsCubit!,
       act: (cubit) => cubit.getProducts(ItemCategory.APPAREL),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(apparels!),
+      ],
+    );
+
+    blocTest<ProductsCubit, ProductsState>(
+      "getBedsAndHouses",
+      build: () => productsCubit!,
+      act: (cubit) => cubit.getBedsAndHouses(),
+      expect: () => [
+        ProductsLoading(),
+        ProductsLoaded(bedsandHouses!),
+      ],
+    );
+
+    blocTest<ProductsCubit, ProductsState>(
+      "getProducts(ItemCategory.COLLAR)",
+      build: () => productsCubit!,
+      act: (cubit) => cubit.getProducts(ItemCategory.COLLAR),
+      expect: () => [
+        ProductsLoading(),
+        ProductsLoaded(collars!),
+      ],
+    );
+
+    blocTest<ProductsCubit, ProductsState>(
+      "getProducts(ItemCategory.BOWL)",
+      build: () => productsCubit!,
+      act: (cubit) => cubit.getProducts(ItemCategory.BOWL),
+      expect: () => [
+        ProductsLoading(),
+        ProductsLoaded(bowls!),
       ],
     );
 

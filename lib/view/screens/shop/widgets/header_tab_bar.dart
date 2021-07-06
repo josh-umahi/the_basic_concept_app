@@ -10,7 +10,7 @@ class _HeaderTabBarState extends State<HeaderTabBar>
   late TabController _tabController;
   final tabTitles = [
     "Top",
-    "Apparel",
+    "Apparels",
     "Bowls",
     "Beds and Houses",
     "Collars",

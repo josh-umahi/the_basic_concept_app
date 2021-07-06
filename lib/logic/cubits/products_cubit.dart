@@ -17,24 +17,29 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(ProductsLoading());
 
     try {
+      final String headerTitle;
       final List<Product> products;
       switch (category) {
         case ItemCategory.APPAREL:
+          headerTitle = "Apparels";
           products = await _productRepository.getApparels();
           break;
         case ItemCategory.BOWL:
+          headerTitle = "Bowls";
           products = await _productRepository.getBowls();
           break;
         case ItemCategory.COLLAR:
+          headerTitle = "Collars";
           products = await _productRepository.getCollars();
           break;
         default:
+          headerTitle = "";
           products = [];
           print(
               "The default was reached in getProducts method of ProductsCubit");
           break;
       }
-      emit(ProductsLoaded(products));
+      emit(ProductsLoaded(headerTitle, products));
     } catch (e) {
       emit(ProductsError(e));
     }
@@ -45,7 +50,7 @@ class ProductsCubit extends Cubit<ProductsState> {
 
     try {
       final products = await _productRepository.getBedsAndHouses();
-      emit(ProductsLoaded(products));
+      emit(ProductsLoaded("Beds and Houses", products));
     } catch (e) {
       emit(ProductsError(e));
     }

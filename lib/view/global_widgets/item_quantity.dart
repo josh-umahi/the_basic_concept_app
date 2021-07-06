@@ -10,8 +10,9 @@ Border customBorders([Color color = ourLightGrey]) {
 }
 
 class ItemQuantity extends StatelessWidget {
+  final int quantity;
   final double width;
-  const ItemQuantity({required this.width});
+  const ItemQuantity(this.quantity, {required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ItemQuantity extends StatelessWidget {
               border: customBorders(),
             ),
             child: Text(
-              "2",
+              quantity.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,

@@ -11,4 +11,4 @@ These include:
 - flutter_bloc: for state management
 - http: for making HTTP requests
 
-The backend consists of a JSON API created with [json-server](https://github.com/typicode/json-server) and hosted on [Heroku](https://www.heroku.com/), a developers best friend for quickly deploying servers and much more.  
+The backend consists of a JSON API created with [json-server](https://github.com/typicode/json-server) and hosted on [Heroku](https://www.heroku.com/), a great platform for quickly deploying servers and much more.  
