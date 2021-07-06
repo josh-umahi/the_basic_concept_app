@@ -1,4 +1,6 @@
-part of '../shop_screen.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../constant.dart';
 
 class HeaderTabBar extends StatefulWidget {
   @override

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constant.dart';
 import '../../../global_widgets/custom_texts.dart';
 import '../../../global_widgets/item_quantity.dart';
 import '../../../../data/models/product.dart';
+import '../../../../logic/cubits/product_quantity_cubit.dart';
 
 class ShopItem extends StatelessWidget {
   final Product product;
@@ -53,7 +55,10 @@ class ShopItem extends StatelessWidget {
                   ProductTitle(product.title, maxLines: 3),
                   ProductPrice(product.price),
                   Spacer(),
-                  ItemQuantity(product.quantity, width: 140),
+                  BlocProvider<ProductQuantityCubit>(
+                    create: (_) => ProductQuantityCubit(),
+                    child: ItemQuantity(width: 140),
+                  ),
                 ],
               ),
             ),

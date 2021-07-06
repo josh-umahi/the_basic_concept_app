@@ -8,7 +8,6 @@ class Product extends Equatable {
   final String imageURL;
   final double priceAsDouble;
   final String categoryAsStr;
-  int quantity;
 
   Product({
     required this.id,
@@ -16,7 +15,6 @@ class Product extends Equatable {
     required this.imageURL,
     required this.priceAsDouble,
     required this.categoryAsStr,
-    this.quantity = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -41,16 +39,6 @@ class Product extends Equatable {
 
   String get price {
     return "\$${priceAsDouble.toStringAsFixed(2)}";
-  }
-
-  void increaseQuantity() {
-    quantity += 1;
-  }
-
-  void decreaseQuantity() {
-    if (quantity != 0) {
-      quantity -= 1;
-    }
   }
 
   ItemCategory get category {
