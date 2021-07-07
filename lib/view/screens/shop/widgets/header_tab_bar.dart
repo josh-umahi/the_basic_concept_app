@@ -2,33 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../constant.dart';
 
-class HeaderTabBar extends StatefulWidget {
-  @override
-  _HeaderTabBarState createState() => _HeaderTabBarState();
-}
+class HeaderTabBar extends StatelessWidget {
+  final TabController tabController;
+  final List<String> tabTitles;
 
-class _HeaderTabBarState extends State<HeaderTabBar>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  final tabTitles = [
-    "Top",
-    "Apparels",
-    "Bowls",
-    "Beds and Houses",
-    "Collars",
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController =
-        TabController(initialIndex: 1, length: tabTitles.length, vsync: this);
-  }
+  HeaderTabBar({required this.tabController, required this.tabTitles});
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      controller: _tabController,
+      controller: tabController,
       labelColor: Colors.black,
       indicatorColor: Colors.transparent,
       unselectedLabelColor: ourDarkGrey,
