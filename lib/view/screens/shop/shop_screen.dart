@@ -12,6 +12,7 @@ part 'widgets/screen_tab_bar.dart';
 part 'widgets/screen_tab_bar_view.dart';
 part 'widgets/specific_products_tab.dart';
 part 'widgets/shop_item.dart';
+part 'constants/tabs_info.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
@@ -22,19 +23,11 @@ class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  static const _tabTitles = [
-    "Top",
-    "Apparels",
-    "Bowls",
-    "Beds and Houses",
-    "Collars",
-  ];
-
   @override
   void initState() {
     super.initState();
     _tabController =
-        TabController(initialIndex: 2, length: _tabTitles.length, vsync: this);
+        TabController(initialIndex: 2, length: tabsInfo.length, vsync: this);
   }
 
   @override
@@ -79,10 +72,7 @@ class _ShopScreenState extends State<ShopScreen>
             padding: const EdgeInsets.symmetric(
               horizontal: ourPaddingHorizontal * 0.4,
             ),
-            child: HeaderTabBar(
-              tabController: _tabController,
-              tabTitles: _tabTitles,
-            ),
+            child: HeaderTabBar(tabController: _tabController),
           ),
           SizedBox(height: 10),
           Expanded(

@@ -22,11 +22,17 @@ class ProductsCubit extends Cubit<ProductsState> {
         case ItemCategory.APPAREL:
           products = await _productRepository.getApparels();
           break;
+        case ItemCategory.BED:
+          products = await _productRepository.getBedsAndHouses();
+          break;
         case ItemCategory.BOWL:
           products = await _productRepository.getBowls();
           break;
         case ItemCategory.COLLAR:
           products = await _productRepository.getCollars();
+          break;
+        case ItemCategory.HOUSE:
+          products = await _productRepository.getBedsAndHouses();
           break;
         default:
           products = [];
@@ -34,17 +40,6 @@ class ProductsCubit extends Cubit<ProductsState> {
               "The default was reached in getProducts method of ProductsCubit");
           break;
       }
-      emit(ProductsLoaded(products));
-    } catch (e) {
-      emit(ProductsError(e));
-    }
-  }
-
-  Future<void> getBedsAndHouses() async {
-    emit(ProductsLoading());
-
-    try {
-      final products = await _productRepository.getBedsAndHouses();
       emit(ProductsLoaded(products));
     } catch (e) {
       emit(ProductsError(e));

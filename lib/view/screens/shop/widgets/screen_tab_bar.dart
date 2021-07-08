@@ -2,9 +2,7 @@ part of '../shop_screen.dart';
 
 class HeaderTabBar extends StatelessWidget {
   final TabController tabController;
-  final List<String> tabTitles;
-
-  HeaderTabBar({required this.tabController, required this.tabTitles});
+  HeaderTabBar({required this.tabController});
 
   @override
   Widget build(BuildContext context) {

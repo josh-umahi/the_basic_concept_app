@@ -1,50 +1,25 @@
 part of '../shop_screen.dart';
 
 class ScreenTabBarView extends StatelessWidget {
+  final TabController tabController;
   const ScreenTabBarView({
-    Key? key,
-    required TabController tabController,
-  }) : _tabController = tabController, super(key: key);
-
-  final TabController _tabController;
+    required this.tabController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TabBarView(
-      controller: _tabController,
-      children: [
-        BlocProvider<ProductsCubit>(
-          create: (_) {
-            return ProductsCubit()..getProducts(ItemCategory.APPAREL);
-          },
+      controller: tabController,
+      children: tabCategories.map((tabCategory) {
+        return BlocProvider<ProductsCubit>(
+          create: (_) => createProductsCubit(tabCategory),
           child: SpecificProductsTab(),
-        ),
-        BlocProvider<ProductsCubit>(
-          create: (_) {
-            return ProductsCubit()..getProducts(ItemCategory.BOWL);
-          },
-          child: SpecificProductsTab(),
-        ),
-        BlocProvider<ProductsCubit>(
-          create: (_) {
-            return ProductsCubit()..getBedsAndHouses();
-          },
-          child: SpecificProductsTab(),
-        ),
-        BlocProvider<ProductsCubit>(
-          create: (_) {
-            return ProductsCubit()..getProducts(ItemCategory.COLLAR);
-          },
-          child: SpecificProductsTab(),
-        ),
-        BlocProvider<ProductsCubit>(
-          create: (_) {
-            return ProductsCubit()..getProducts(ItemCategory.COLLAR);
-          },
-          child: SpecificProductsTab(),
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
-}
 
+  ProductsCubit createProductsCubit(ItemCategory category) {
+    return ProductsCubit()..getProducts(category);
+  }
+}

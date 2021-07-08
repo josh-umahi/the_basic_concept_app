@@ -30,9 +30,9 @@ void main() {
     );
 
     blocTest<ProductsCubit, ProductsState>(
-      "getBedsAndHouses",
+      "getProducts(ItemCategory.BED)",
       build: () => productsCubit!,
-      act: (cubit) => cubit.getBedsAndHouses(),
+      act: (cubit) => cubit.getProducts(ItemCategory.BED),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(bedsandHouses!),
