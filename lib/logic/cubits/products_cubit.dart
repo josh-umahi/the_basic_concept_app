@@ -11,7 +11,7 @@ part 'products_state.dart';
 class ProductsCubit extends Cubit<ProductsState> {
   final _productRepository = ProductRepository();
 
-  ProductsCubit() : super(ProductsInitial());
+  ProductsCubit() : super(ProductsLoading());
 
   Future<void> getProducts(ItemCategory category) async {
     emit(ProductsLoading());

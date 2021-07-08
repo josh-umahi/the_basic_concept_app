@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../constant.dart';
-import '../../../global_widgets/custom_texts.dart';
-import '../../../global_widgets/item_quantity.dart';
-import '../../../../data/models/product.dart';
-import '../../../../logic/cubits/product_quantity_cubit.dart';
+part of '../shop_screen.dart';
 
 class ShopItem extends StatelessWidget {
   final Product product;

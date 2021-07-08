@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../../constant.dart';
+part of '../shop_screen.dart';
 
 class HeaderTabBar extends StatelessWidget {
   final TabController tabController;

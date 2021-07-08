@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constant.dart';
-import 'widgets/specific_products_tab.dart';
-import 'widgets/header_tab_bar.dart';
 import '../../../data/models/item_category.dart';
 import '../../../logic/cubits/products_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
+import '../../../data/models/product.dart';
+import '../../global_widgets/item_quantity.dart';
+
+part 'widgets/screen_tab_bar.dart';
+part 'widgets/screen_tab_bar_view.dart';
+part 'widgets/specific_products_tab.dart';
+part 'widgets/shop_item.dart';
 
 class ShopScreen extends StatefulWidget {
   @override
@@ -29,7 +34,7 @@ class _ShopScreenState extends State<ShopScreen>
   void initState() {
     super.initState();
     _tabController =
-        TabController(initialIndex: 1, length: _tabTitles.length, vsync: this);
+        TabController(initialIndex: 2, length: _tabTitles.length, vsync: this);
   }
 
   @override
@@ -61,52 +66,30 @@ class _ShopScreenState extends State<ShopScreen>
           AppBarSideSizedBox,
         ],
       ),
-      body: BlocProvider<ProductsCubit>(
-        create: (_) => ProductsCubit()..getProducts(ItemCategory.APPAREL),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: ourPaddingHorizontal,
-              ),
-              child: HeaderText("Hey there!"),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: ourPaddingHorizontal * 0.4,
-              ),
-              child: HeaderTabBar(
-                tabController: _tabController,
-                tabTitles: _tabTitles,
-              ),
+            child: HeaderText("Hey there!"),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal * 0.4,
             ),
-            SizedBox(height: 10),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-          //         BlocBuilder<ProductsCubit, ProductsState>(
-          // builder: (context, state) {
-          //   return
-          // }),
-                  Icon(Icons.directions_car),
-                  Icon(Icons.directions_transit),
-                  Icon(Icons.directions_boat),
-                  Icon(Icons.directions_bike),
-                  Icon(Icons.directions_train_rounded),
-                ],
-              ),
+            child: HeaderTabBar(
+              tabController: _tabController,
+              tabTitles: _tabTitles,
             ),
-            // SpecificProductsTab(),
-          ],
-        ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: ScreenTabBarView(tabController: _tabController),
+          ),
+        ],
       ),
     );
   }
 }
-
-// body: BlocProvider<ProductsCubit>(
-//   create: (_) => ProductsCubit()..getProducts(ItemCategory.APPAREL),
-//   child: SpecificProductsTab("Hello World!"),
-// ),
