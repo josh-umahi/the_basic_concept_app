@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constant.dart';
 import '../../logic/cubit/product_quantity_cubit.dart';
 import '../../logic/cubit/cart_cubit.dart';
-import '../../data/models/item_category.dart';
 
 Border customBorders([Color color = ourLightGrey]) {
   return Border.all(
@@ -15,12 +14,10 @@ Border customBorders([Color color = ourLightGrey]) {
 
 class ItemQuantity extends StatelessWidget {
   final String id;
-  final ItemCategory category;
   final double width;
 
   const ItemQuantity({
     required this.id,
-    required this.category,
     required this.width,
   });
 
@@ -32,7 +29,6 @@ class ItemQuantity extends StatelessWidget {
       child: BlocProvider<ProductQuantityCubit>(
         create: (_) => ProductQuantityCubit(
           id: id,
-          category: category,
           cartCubit: context.read<CartCubit>(),
         ),
         child: BlocBuilder<ProductQuantityCubit, int>(

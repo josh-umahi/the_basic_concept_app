@@ -50,7 +50,6 @@ class ShopItem extends StatelessWidget {
                   Spacer(),
                   ItemQuantity(
                     id: product.id,
-                    category: product.category,
                     width: 140,
                   ),
                 ],

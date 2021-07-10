@@ -20,7 +20,6 @@ class ScreenTabBarView extends StatelessWidget {
   }
 
   ProductsCubit createProductsCubit(ItemCategory category) {
-    final initialCart = Cart.fromString(CartSharedPreferences.getCartString());
-    return ProductsCubit(initialCart)..getProducts(category);
+    return ProductsCubit()..getProducts(category);
   }
 }

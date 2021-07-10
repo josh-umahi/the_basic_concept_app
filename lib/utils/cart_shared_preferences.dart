@@ -5,11 +5,13 @@ class CartSharedPreferences {
 
   static const _key = 'cartString';
 
-  static Future init() async =>
-      _preferences = await SharedPreferences.getInstance();
+  static Future init() async {
+    _preferences = await SharedPreferences.getInstance();
+    // await _preferences.clear();
+  }
 
   static Future setCartString(String cartString) async =>
       await _preferences.setString(_key, cartString);
 
-  static String getCartString() => _preferences.getString(_key)!;
+  static String? getCartString() => _preferences.getString(_key);
 }
