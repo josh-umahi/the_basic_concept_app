@@ -1,6 +1,6 @@
 part of '../shop_screen.dart';
 
-class SpecificProductsTab extends StatelessWidget {
+class ProductCategoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsCubit, ProductsState>(
@@ -8,6 +8,7 @@ class SpecificProductsTab extends StatelessWidget {
         if (state is ProductsLoaded) {
           final products = state.products;
           return ListView.builder(
+            padding: const EdgeInsets.only(top: 20),
             itemCount: products.length,
             itemBuilder: (context, i) {
               return ShopItem(products[i]);
@@ -17,9 +18,9 @@ class SpecificProductsTab extends StatelessWidget {
           return Column(
             children: [
               LinearProgressIndicator(
-                backgroundColor: ourLightGrey,
+                backgroundColor: Colors.transparent,
                 color: Colors.black,
-                minHeight: 1.25,
+                minHeight: linearIndicatorHeight,
               ),
             ],
           );

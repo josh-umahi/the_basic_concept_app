@@ -48,7 +48,11 @@ class ShopItem extends StatelessWidget {
                   ProductTitle(product.title, maxLines: 3),
                   ProductPrice(product.price),
                   Spacer(),
-                  ItemQuantity(width: 140),
+                  ItemQuantity(
+                    id: product.id,
+                    category: product.category,
+                    width: 140,
+                  ),
                 ],
               ),
             ),

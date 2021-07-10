@@ -9,14 +9,13 @@ import '../../data/models/item_category.dart';
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  final _productRepository = ProductRepository();
-
   ProductsCubit() : super(ProductsLoading());
 
   Future<void> getProducts(ItemCategory category) async {
     emit(ProductsLoading());
 
     try {
+      final _productRepository = ProductRepository();
       final List<Product> products;
       switch (category) {
         case ItemCategory.APPAREL:

@@ -10,3 +10,5 @@ const appBarLeftActionSize = 33.0;
 const appBarRightActionSize = 25.0;
 const AppBarMiddleSizedBox = SizedBox(width: 22);
 const AppBarSideSizedBox = SizedBox(width: 16);
+
+const linearIndicatorHeight = 1.25;

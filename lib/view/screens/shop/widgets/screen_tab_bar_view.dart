@@ -13,13 +13,14 @@ class ScreenTabBarView extends StatelessWidget {
       children: tabCategories.map((tabCategory) {
         return BlocProvider<ProductsCubit>(
           create: (_) => createProductsCubit(tabCategory),
-          child: SpecificProductsTab(),
+          child: ProductCategoryTab(),
         );
       }).toList(),
     );
   }
 
   ProductsCubit createProductsCubit(ItemCategory category) {
-    return ProductsCubit()..getProducts(category);
+    final initialCart = Cart.fromString(CartSharedPreferences.getCartString());
+    return ProductsCubit(initialCart)..getProducts(category);
   }
 }

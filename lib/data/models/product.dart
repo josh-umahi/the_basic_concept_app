@@ -37,6 +37,10 @@ class Product extends Equatable {
     }
   }
 
+  set changeQuantity(int i) {
+    changeQuantity = i;
+  }
+
   String get price {
     return "\$${priceAsDouble.toStringAsFixed(2)}";
   }

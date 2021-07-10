@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constant.dart';
 import '../../../data/models/item_category.dart';
-import '../../../logic/cubits/products_cubit.dart';
+import '../../../logic/cubit/products_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../../data/models/product.dart';
 import '../../global_widgets/item_quantity.dart';
 
 part 'widgets/screen_tab_bar.dart';
 part 'widgets/screen_tab_bar_view.dart';
-part 'widgets/specific_products_tab.dart';
+part 'widgets/product_category_tab.dart';
 part 'widgets/shop_item.dart';
 part 'constants/tabs_info.dart';
 
@@ -62,19 +62,33 @@ class _ShopScreenState extends State<ShopScreen>
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: ourPaddingHorizontal,
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(width: 0.5, color: Color(0xFFE1E1E1)),
+              ),
             ),
-            child: HeaderText("Hey there!"),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: ourPaddingHorizontal * 0.4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ourPaddingHorizontal,
+                  ),
+                  child: HeaderText(
+                    "Hey there!",
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ourPaddingHorizontal * 0.4,
+                  ),
+                  child: HeaderTabBar(tabController: _tabController),
+                ),
+                SizedBox(height: 10),
+              ],
             ),
-            child: HeaderTabBar(tabController: _tabController),
           ),
-          SizedBox(height: 10),
           Expanded(
             child: ScreenTabBarView(tabController: _tabController),
           ),
