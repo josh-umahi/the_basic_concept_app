@@ -19,7 +19,7 @@ class ScreenTabBarView extends StatelessWidget {
     );
   }
 
-  ProductsCubit createProductsCubit(ItemCategory category) {
-    return ProductsCubit()..getProducts(category);
+  ProductsCubit createProductsCubit(String categoryTag) {
+    return ProductsCubit()..getProducts(categoryTag);
   }
 }

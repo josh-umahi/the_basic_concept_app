@@ -45,7 +45,7 @@ class Product extends Equatable {
     return "\$${priceAsDouble.toStringAsFixed(2)}";
   }
 
-  ItemCategory get category {
+  String get category {
     switch (categoryAsStr) {
       case "apparel":
         return ItemCategory.APPAREL;

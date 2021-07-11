@@ -8,7 +8,10 @@ class ProductCategoryTab extends StatelessWidget {
         if (state is ProductsLoaded) {
           final products = state.products;
           return ListView.builder(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: ourPaddingHorizontal,
+              vertical: ourPaddingVertical,
+            ),
             itemCount: products.length,
             itemBuilder: (context, i) {
               return ShopItem(products[i]);

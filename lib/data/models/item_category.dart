@@ -1,28 +1,9 @@
-enum ItemCategory {
-  APPAREL,
-  BED,
-  BOWL,
-  COLLAR,
-  HOUSE,
-  Null,
-}
-
-extension ItemCategoryTag on ItemCategory {
-  String get tag {
-    switch (this) {
-      case ItemCategory.APPAREL:
-        return "a";
-      case ItemCategory.BED:
-        return "b";
-      case ItemCategory.BOWL:
-        return "c";
-      case ItemCategory.COLLAR:
-        return "d";
-      case ItemCategory.HOUSE:
-        return "e";
-      default:
-        print("The default was reached in ItemCategoryTag");
-        return "";
-    }
-  }
+/// Each static property in the ItemCategory class represents a unique categoryTag
+class ItemCategory {
+  static const APPAREL = "a";
+  static const BED = "b";
+  static const BOWL = "c";
+  static const COLLAR = "d";
+  static const HOUSE = "e";
+  static const Null = "f";
 }

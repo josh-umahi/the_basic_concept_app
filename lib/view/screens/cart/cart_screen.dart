@@ -41,27 +41,32 @@ class CartScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: ourPaddingHorizontal),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HeaderText("My Cart"),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      CartItem(),
-                      CartItem(),
-                      CartItem(),
-                      CartItem(),
-                      CartSummary(),
-                      SizedBox(height: heightOfButtonPlusBottomMargin),
-                    ],
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: headerContainerDecoration,
+                width: double.infinity,
+                padding: const EdgeInsets.only(left: ourPaddingHorizontal),
+                child: HeaderText("My Cart"),
+              ),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: ourPaddingHorizontal,
+                    vertical: ourPaddingVertical,
                   ),
+                  children: [
+                    CartItem(),
+                    CartItem(),
+                    CartItem(),
+                    CartItem(),
+                    CartSummary(),
+                    SizedBox(height: heightOfButtonPlusBottomMargin * 1.4),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           NavToCheckoutButton(),
         ],

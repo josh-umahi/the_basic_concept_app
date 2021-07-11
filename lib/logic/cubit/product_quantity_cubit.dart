@@ -6,14 +6,14 @@ import '../../data/models/item_category.dart';
 
 class ProductQuantityCubit extends Cubit<int> {
   final String id;
-  final ItemCategory category;
+  final String categoryTag;
   final CartCubit cartCubit;
 
   late Cart cart;
 
   ProductQuantityCubit({
     required this.id,
-    required this.category,
+    required this.categoryTag,
     required this.cartCubit,
   }) : super(0) {
     cart = cartCubit.state;
@@ -23,7 +23,7 @@ class ProductQuantityCubit extends Cubit<int> {
   }
 
   void updateCartItem() {
-    cart.changeQuantity(id, state, category);
+    cart.changeQuantity(id, state, categoryTag);
   }
 
   void increment() {

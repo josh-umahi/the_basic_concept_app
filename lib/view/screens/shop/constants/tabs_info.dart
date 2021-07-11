@@ -10,5 +10,4 @@ const List<List<Object>> tabsInfo = [
 
 final tabTitles = tabsInfo.map((tabInfo) => tabInfo[0].toString()).toList();
 
-final tabCategories =
-    tabsInfo.map((tabInfo) => tabInfo[1] as ItemCategory).toList();
+final tabCategories = tabsInfo.map((tabInfo) => tabInfo[1].toString()).toList();

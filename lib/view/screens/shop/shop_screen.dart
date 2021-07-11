@@ -74,11 +74,7 @@ class _ShopScreenState extends State<ShopScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(width: 0.5, color: Color(0xFFE1E1E1)),
-              ),
-            ),
+            decoration: headerContainerDecoration,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

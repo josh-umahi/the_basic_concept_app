@@ -1,4 +1,3 @@
-import '../../data/models/item_category.dart';
 import '../../utils/cart_shared_preferences.dart';
 
 class Cart {
@@ -13,9 +12,9 @@ class Cart {
     _itemCategories = itemCategories;
   }
 
-  void changeQuantity(String id, int quantity, ItemCategory category) {
+  void changeQuantity(String id, int quantity, String categoryTag) {
     _itemQuantities[id] = quantity;
-    _itemCategories[id] = category.tag;
+    _itemCategories[id] = categoryTag;
 
     if (quantity == 0) {
       _removeItem(id);

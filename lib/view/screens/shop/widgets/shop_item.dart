@@ -9,9 +9,6 @@ class ShopItem extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.symmetric(
-        horizontal: ourPaddingHorizontal,
-      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,7 +47,7 @@ class ShopItem extends StatelessWidget {
                   Spacer(),
                   ItemQuantity(
                     id: product.id,
-                    category: product.category,
+                    categoryTag: product.category,
                     width: 140,
                   ),
                 ],
