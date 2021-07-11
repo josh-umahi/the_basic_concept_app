@@ -22,18 +22,26 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late String headerText;
 
   @override
   void initState() {
     super.initState();
     _tabController =
-        TabController(initialIndex: 2, length: tabsInfo.length, vsync: this);
+        TabController(initialIndex: 0, length: tabsInfo.length, vsync: this);
+    headerText = tabTitles[_tabController.index];
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void updateHeaderText() {
+    setState(() {
+      headerText = tabTitles[_tabController.index];
+    });
   }
 
   @override
@@ -52,9 +60,12 @@ class _ShopScreenState extends State<ShopScreen>
             size: appBarRightActionSize,
           ),
           AppBarMiddleSizedBox,
-          Icon(
-            Icons.shopping_cart,
-            size: appBarRightActionSize,
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed("/cart"),
+            child: Icon(
+              Icons.shopping_cart,
+              size: appBarRightActionSize,
+            ),
           ),
           AppBarSideSizedBox,
         ],
@@ -76,14 +87,17 @@ class _ShopScreenState extends State<ShopScreen>
                     horizontal: ourPaddingHorizontal,
                   ),
                   child: HeaderText(
-                    "Hey there!",
+                    headerText,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: ourPaddingHorizontal * 0.4,
                   ),
-                  child: HeaderTabBar(tabController: _tabController),
+                  child: HeaderTabBar(
+                    tabController: _tabController,
+                    onTapEvent: updateHeaderText,
+                  ),
                 ),
                 SizedBox(height: 10),
               ],

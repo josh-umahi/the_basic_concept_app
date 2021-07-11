@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'view/screens/cart/cart_screen.dart';
 import 'data/models/cart.dart';
-import 'view/screens/shop/shop_screen.dart';
 import '../logic/cubit/cart_cubit.dart';
 import '../utils/cart_shared_preferences.dart';
+import 'view/router/app_router.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +19,14 @@ Future main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartCubit>(
@@ -43,8 +49,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Nunito",
         ),
         debugShowCheckedModeBanner: false,
-        home: ShopScreen(),
-        // home: CartScreen(),
+        onGenerateRoute: AppRouter.generateRoute,
       ),
     );
   }

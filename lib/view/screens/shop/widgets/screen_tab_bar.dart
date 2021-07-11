@@ -2,7 +2,11 @@ part of '../shop_screen.dart';
 
 class HeaderTabBar extends StatelessWidget {
   final TabController tabController;
-  HeaderTabBar({required this.tabController});
+  final void Function() onTapEvent;
+  HeaderTabBar({
+    required this.tabController,
+    required this.onTapEvent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,7 @@ class HeaderTabBar extends StatelessWidget {
       ),
       isScrollable: true,
       tabs: _buildTabs(),
+      onTap: (i) => onTapEvent(),
     );
   }
 

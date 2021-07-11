@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 import '../../global_widgets/custom_texts.dart';
-import '../../global_widgets/item_quantity.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/cart_summary.dart';
@@ -18,7 +17,7 @@ class CartScreen extends StatelessWidget {
         actions: [
           AppBarSideSizedBox,
           GestureDetector(
-            onTap: () {},
+            onTap: () => Navigator.of(context).pop(),
             child: Icon(
               Icons.arrow_back_ios,
               size: appBarLeftActionSize,
@@ -30,9 +29,12 @@ class CartScreen extends StatelessWidget {
             size: appBarRightActionSize,
           ),
           AppBarMiddleSizedBox,
-          Icon(
-            Icons.account_circle_outlined,
-            size: appBarRightActionSize,
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Icon(
+              Icons.account_circle_outlined,
+              size: appBarRightActionSize,
+            ),
           ),
           AppBarSideSizedBox,
         ],
