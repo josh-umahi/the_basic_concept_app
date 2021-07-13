@@ -45,10 +45,13 @@ class ShopItem extends StatelessWidget {
                   ProductTitle(product.title, maxLines: 3),
                   ProductPrice(product.price),
                   Spacer(),
-                  ItemQuantity(
-                    id: product.id,
-                    categoryTag: product.categoryTag,
-                    width: 140,
+                  BlocProvider<ProductQuantityCubit>(
+                    create: (_) => ProductQuantityCubit(
+                      id: product.id,
+                      categoryTag: product.categoryTag,
+                      cartCubit: context.read<CartCubit>(),
+                    ),
+                    child: ItemQuantity(width: 140),
                   ),
                 ],
               ),

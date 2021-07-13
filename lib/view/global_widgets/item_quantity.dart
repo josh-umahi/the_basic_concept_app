@@ -13,16 +13,10 @@ Border customBorders([Color color = ourLightGrey]) {
 }
 
 class ItemQuantity extends StatelessWidget {
-  final String id;
-  final String categoryTag;
   final double width;
-  final bool isOnCartScreen;
 
   const ItemQuantity({
-    required this.id,
-    required this.categoryTag,
     required this.width,
-    this.isOnCartScreen = false,
   });
 
   @override
@@ -30,51 +24,44 @@ class ItemQuantity extends StatelessWidget {
     return Container(
       height: 40,
       width: width,
-      child: BlocProvider<ProductQuantityCubit>(
-        create: (_) => ProductQuantityCubit(
-          id: id,
-          categoryTag: categoryTag,
-          cartCubit: context.read<CartCubit>(),
-        ),
-        child: BlocBuilder<ProductQuantityCubit, int>(
-          builder: (context, state) {
-            return Row(
-              children: [
-                QuantityButton(
-                  // Decrease Button
-                  unicodeString: "\u2013",
-                  widthOfParent: width,
-                  isOnLeft: true,
-                  action: context.read<ProductQuantityCubit>().decrement,
+      child: BlocBuilder<ProductQuantityCubit, int>(
+        builder: (context, state) {
+          return Row(
+            children: [
+              QuantityButton(
+                // Decrease Button
+                unicodeString: "\u2013",
+                widthOfParent: width,
+                isOnLeft: true,
+                action: context.read<ProductQuantityCubit>().decrement,
+              ),
+              Container(
+                width: 0.4 * width,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: state == 0
+                      ? customBorders()
+                      : customBorders(Colors.black),
                 ),
-                Container(
-                  width: 0.4 * width,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: state == 0
-                        ? customBorders()
-                        : customBorders(Colors.black),
-                  ),
-                  child: Text(
-                    state.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
+                child: Text(
+                  state.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
                   ),
                 ),
-                QuantityButton(
-                  // Increase Button
-                  unicodeString: "\u002b",
-                  widthOfParent: width,
-                  action: context.read<ProductQuantityCubit>().increment,
-                ),
-              ],
-            );
-          },
-        ),
+              ),
+              QuantityButton(
+                // Increase Button
+                unicodeString: "\u002b",
+                widthOfParent: width,
+                action: context.read<ProductQuantityCubit>().increment,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

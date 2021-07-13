@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../lib/data/repositories/product_repository.dart';
 import '../lib/data/models/product.dart';
+import '../lib/data/models/category_tag.dart';
 
 void main() {
   group("ProductRepository: ", () {
@@ -28,6 +29,16 @@ void main() {
     test("getCollars", () async {
       final collars = await productRepository.getCollars();
       printProducts(collars, "collar");
+    });
+
+    test("getSpecificProducts", () async {
+      final products = await productRepository.getSpecificProducts({
+        "101": CategoryTag.APPAREL,
+        "109": CategoryTag.BOWL,
+      });
+      for (var product in products) {
+        print(product.toString());
+      }
     });
   });
 }

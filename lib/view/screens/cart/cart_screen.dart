@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_basic_concept_app/view/global_widgets/item_quantity.dart';
 
 import '../../../constant.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/internet_error_container.dart';
+import '../../global_widgets/item_quantity.dart';
 import '../../../data/models/product.dart';
 import '../../../logic/cubit/cart_cubit.dart';
+import '../../../logic/cubit/product_quantity_cubit.dart';
+import '../../../data/models/cart.dart';
+import '../../../logic/cubit/products_cubit.dart';
+import '../../../view/global_widgets/item_quantity.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/cart_summary_container.dart';
@@ -60,9 +64,10 @@ class _CartScreenState extends State<CartScreen> {
             child: HeaderText("My Cart"),
           ),
           Expanded(
-            child: BlocBuilder<CartCubit, CartState>(
+            child: BlocBuilder<CartCubit, Cart>(
               builder: (context, state) {
-                if (state is CartLoaded) {
+                final productsState = state.productsCubit.state;
+                if (productsState is ProductsLoaded) {
                   return Stack(
                     children: [
                       ListView(
@@ -71,25 +76,53 @@ class _CartScreenState extends State<CartScreen> {
                           vertical: ourPaddingVertical,
                         ),
                         children: [
-                          ...state.cartSummary.products.map(
+                          ...productsState.products.map(
                             (product) => CartItem(product),
                           ),
                           CartSummaryContainer(
-                            subtotal: state.cartSummary.subtotal,
-                            quantity: state.cartSummary.quantity,
+                            subtotal: state.subtotal,
+                            quantity: state.quantity,
                           ),
                           SizedBox(
-                              height: heightOfButtonPlusBottomMargin * 1.4,),
+                            height: heightOfButtonPlusBottomMargin * 1.4,
+                          ),
                         ],
                       ),
                       NavToCheckoutButton(),
                     ],
                   );
-                } else if (state is CartLoading) {
-                  return LoadingLinearProgress();
                 } else {
-                  return InternetErrorContainer();
+                  return Text("Something's not right");
                 }
+
+                //   if (state is CartLoaded) {
+                //     return Stack(
+                //       children: [
+                //         ListView(
+                //           padding: const EdgeInsets.symmetric(
+                //             horizontal: ourPaddingHorizontal,
+                //             vertical: ourPaddingVertical,
+                //           ),
+                //           children: [
+                //             ...state.cartSummary.products.map(
+                //               (product) => CartItem(product),
+                //             ),
+                //             CartSummaryContainer(
+                //               subtotal: state.cartSummary.subtotal,
+                //               quantity: state.cartSummary.quantity,
+                //             ),
+                //             SizedBox(
+                //                 height: heightOfButtonPlusBottomMargin * 1.4,),
+                //           ],
+                //         ),
+                //         NavToCheckoutButton(),
+                //       ],
+                //     );
+                //   } else if (state is CartLoading) {
+                //     return LoadingLinearProgress();
+                //   } else {
+                //     return InternetErrorContainer();
+                //   }
               },
             ),
           ),

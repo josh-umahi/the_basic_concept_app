@@ -2,6 +2,8 @@ import "dart:convert";
 import "package:http/http.dart" as http;
 
 import '../models/product.dart';
+import '../models/category_tag.dart';
+import '../repositories/unencoded_path.dart';
 
 class ProductRepository {
   final _baseUrl = "the-basic-concept-api.herokuapp.com";
@@ -92,5 +94,59 @@ class ProductRepository {
     } finally {
       client.close();
     }
+  }
+
+  Future<Product> getSpecificProduct({
+    required String id,
+    required String categoryTag,
+  }) async {
+    String unencodedPath;
+
+    switch (categoryTag) {
+      case CategoryTag.APPAREL:
+        unencodedPath = UnencodedPath.APPAREL;
+        break;
+      case CategoryTag.BED:
+        unencodedPath = UnencodedPath.BED;
+        break;
+      case CategoryTag.BOWL:
+        unencodedPath = UnencodedPath.BOWL;
+        break;
+      case CategoryTag.COLLAR:
+        unencodedPath = UnencodedPath.COLLAR;
+        break;
+      case CategoryTag.HOUSE:
+        unencodedPath = UnencodedPath.HOUSE;
+        break;
+      default:
+        throw ("An error occured in ProductRepository getSpecificProduct");
+    }
+
+    unencodedPath += "/$id";
+    final uri = Uri.https(_baseUrl, unencodedPath);
+    final client = http.Client();
+    final response = await client.get(uri);
+    final json = jsonDecode(response.body);
+
+    try {
+      return Product.fromJson(json);
+    } catch (e) {
+      throw (e);
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<List<Product>> getSpecificProducts(
+      Map<String, String> idToCategoryTag) async {
+    final List<Product> products = [];
+    for (var id in idToCategoryTag.keys) {
+      final product = await getSpecificProduct(
+        id: id,
+        categoryTag: idToCategoryTag[id]!,
+      );
+      products.add(product);
+    }
+    return products;
   }
 }

@@ -3,7 +3,7 @@ import 'package:bloc_test/bloc_test.dart';
 
 import '../lib/logic/cubit/products_cubit.dart';
 import '../lib/data/models/product.dart';
-import '../lib/data/models/item_category.dart';
+import '../lib/data/models/category_tag.dart';
 import '../lib/data/repositories/product_repository.dart';
 
 void main() {
@@ -20,9 +20,9 @@ void main() {
     });
 
     blocTest<ProductsCubit, ProductsState>(
-      "getProducts(ItemCategory.APPAREL)",
+      "getProducts(CategoryTag.APPAREL)",
       build: () => productsCubit!,
-      act: (cubit) => cubit.getProducts(ItemCategory.APPAREL),
+      act: (cubit) => cubit.getProducts(CategoryTag.APPAREL),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(apparels!),
@@ -30,9 +30,9 @@ void main() {
     );
 
     blocTest<ProductsCubit, ProductsState>(
-      "getProducts(ItemCategory.BED)",
+      "getProducts(CategoryTag.BED)",
       build: () => productsCubit!,
-      act: (cubit) => cubit.getProducts(ItemCategory.BED),
+      act: (cubit) => cubit.getProducts(CategoryTag.BED),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(bedsandHouses!),
@@ -40,9 +40,9 @@ void main() {
     );
 
     blocTest<ProductsCubit, ProductsState>(
-      "getProducts(ItemCategory.COLLAR)",
+      "getProducts(CategoryTag.COLLAR)",
       build: () => productsCubit!,
-      act: (cubit) => cubit.getProducts(ItemCategory.COLLAR),
+      act: (cubit) => cubit.getProducts(CategoryTag.COLLAR),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(collars!),
@@ -50,9 +50,9 @@ void main() {
     );
 
     blocTest<ProductsCubit, ProductsState>(
-      "getProducts(ItemCategory.BOWL)",
+      "getProducts(CategoryTag.BOWL)",
       build: () => productsCubit!,
-      act: (cubit) => cubit.getProducts(ItemCategory.BOWL),
+      act: (cubit) => cubit.getProducts(CategoryTag.BOWL),
       expect: () => [
         ProductsLoading(),
         ProductsLoaded(bowls!),

@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../data/repositories/product_repository.dart';
 import '../../data/models/product.dart';
-import '../../data/models/item_category.dart';
+import '../../data/models/category_tag.dart';
 
 part 'products_state.dart';
 
@@ -18,19 +18,19 @@ class ProductsCubit extends Cubit<ProductsState> {
     try {
       final List<Product> products;
       switch (categoryTag) {
-        case ItemCategory.APPAREL:
+        case CategoryTag.APPAREL:
           products = await _productRepository.getApparels();
           break;
-        case ItemCategory.BED:
+        case CategoryTag.BED:
           products = await _productRepository.getBedsAndHouses();
           break;
-        case ItemCategory.BOWL:
+        case CategoryTag.BOWL:
           products = await _productRepository.getBowls();
           break;
-        case ItemCategory.COLLAR:
+        case CategoryTag.COLLAR:
           products = await _productRepository.getCollars();
           break;
-        case ItemCategory.HOUSE:
+        case CategoryTag.HOUSE:
           products = await _productRepository.getBedsAndHouses();
           break;
         default:
@@ -45,65 +45,14 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-  Future<void> getCartProducts(Map<String, String> idToCategoryTagMap) async {
+  Future<void> getCartProducts(Map<String, String> idToCategoryTag) async {
     emit(ProductsLoading());
     try {
-      final List<String> allIds = idToCategoryTagMap.keys.toList();
-      final List<String> distinctCategoryTags =
-          idToCategoryTagMap.values.toSet().toList();
-
-      final possibleCartProducts =
-          await _retreivePossibleCartProducts(distinctCategoryTags);
-      final List<Product> products = possibleCartProducts
-          .where((product) => allIds.contains(product.id))
-          .toList();
-
-      // for (var product in possibleCartProducts) {
-      //   print(product);
-      // }
+      final List<Product> products =
+          await _productRepository.getSpecificProducts(idToCategoryTag);
       emit(ProductsLoaded(products));
     } catch (e) {
       emit(ProductsError(e));
     }
-  }
-
-  Future<List<Product>> _retreivePossibleCartProducts(
-      List<String> distinctCategoryTags) async {
-    List<Product> possibleCartProducts = [];
-    bool hasAddedBedsAndHouses = false;
-
-    for (var categoryTag in distinctCategoryTags) {
-      switch (categoryTag) {
-        case ItemCategory.APPAREL:
-          possibleCartProducts.addAll(await _productRepository.getApparels());
-          break;
-        case ItemCategory.BED:
-          if (!hasAddedBedsAndHouses) {
-            possibleCartProducts
-                .addAll(await _productRepository.getBedsAndHouses());
-            hasAddedBedsAndHouses = true;
-          }
-          break;
-        case ItemCategory.BOWL:
-          possibleCartProducts.addAll(await _productRepository.getBowls());
-          break;
-        case ItemCategory.COLLAR:
-          possibleCartProducts.addAll(await _productRepository.getCollars());
-          break;
-        case ItemCategory.HOUSE:
-          if (!hasAddedBedsAndHouses) {
-            possibleCartProducts
-                .addAll(await _productRepository.getBedsAndHouses());
-            hasAddedBedsAndHouses = true;
-          }
-          break;
-        default:
-          print(
-              "The default was reached in retreivePossibleCartProducts method of ProductsCubit");
-          break;
-      }
-    }
-
-    return possibleCartProducts;
   }
 }

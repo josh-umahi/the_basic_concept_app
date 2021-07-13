@@ -1,8 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'category_tag.dart';
 
-import 'item_category.dart';
-
-class Product extends Equatable {
+class Product extends Object {
   final String id;
   final String title;
   final String imageURL;
@@ -37,10 +35,6 @@ class Product extends Equatable {
     }
   }
 
-  set changeQuantity(int i) {
-    changeQuantity = i;
-  }
-
   String get price {
     return "\$${priceAsDouble.toStringAsFixed(2)}";
   }
@@ -48,24 +42,19 @@ class Product extends Equatable {
   String get categoryTag {
     switch (categoryAsStr) {
       case "apparel":
-        return ItemCategory.APPAREL;
+        return CategoryTag.APPAREL;
       case "bed":
-        return ItemCategory.BED;
+        return CategoryTag.BED;
       case "bowl":
-        return ItemCategory.BOWL;
+        return CategoryTag.BOWL;
       case "collar":
-        return ItemCategory.COLLAR;
+        return CategoryTag.COLLAR;
       case "house":
-        return ItemCategory.HOUSE;
+        return CategoryTag.HOUSE;
       default:
-        print(
-            "The default was reached in 'ItemCategory get category' for product with id: $id");
-        return ItemCategory.Null;
+        throw ("An error occured in Product get categoryTag for product with id: $id");
     }
   }
-
-  @override
-  List<Object> get props => [id];
 
   @override
   String toString() {

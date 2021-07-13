@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constant.dart';
-import '../../../data/models/item_category.dart';
+import '../../../data/models/category_tag.dart';
 import '../../../logic/cubit/products_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../../data/models/product.dart';
 import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/internet_error_container.dart';
+import '../../../logic/cubit/product_quantity_cubit.dart';
+import '../../../logic/cubit/cart_cubit.dart';
 
 part 'widgets/shop_tab_bar.dart';
 part 'widgets/shop_tab_bar_view.dart';

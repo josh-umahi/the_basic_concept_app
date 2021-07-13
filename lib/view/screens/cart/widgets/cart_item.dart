@@ -53,27 +53,30 @@ class CartItem extends StatelessWidget {
             ],
           ),
           SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ItemQuantity(
-                id: product.id,
-                categoryTag: product.categoryTag,
-                width: 170,
-                isOnCartScreen: true,
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  "REMOVE ITEM",
-                  style: TextStyle(
-                    color: ourDarkGrey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+          BlocProvider<ProductQuantityCubit>(
+            create: (_) => ProductQuantityCubit(
+              id: product.id,
+              categoryTag: product.categoryTag,
+              cartCubit: context.read<CartCubit>(),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ItemQuantity(width: 170),
+                GestureDetector(
+                  onTap: () =>
+                      context.read<ProductQuantityCubit>().replaceQuantity(0),
+                  child: Text(
+                    "REMOVE ITEM",
+                    style: TextStyle(
+                      color: ourDarkGrey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
           SizedBox(height: 10),
         ],

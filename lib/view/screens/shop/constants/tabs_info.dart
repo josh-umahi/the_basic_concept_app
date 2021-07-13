@@ -1,11 +1,11 @@
 part of '../shop_screen.dart';
 
 const List<List<Object>> tabsInfo = [
-  ["Top", ItemCategory.APPAREL],
-  ["Apparels", ItemCategory.APPAREL],
-  ["Bowls", ItemCategory.BOWL],
-  ["Beds and Houses", ItemCategory.BED],
-  ["Collars", ItemCategory.COLLAR],
+  ["Top", CategoryTag.APPAREL],
+  ["Apparels", CategoryTag.APPAREL],
+  ["Bowls", CategoryTag.BOWL],
+  ["Beds and Houses", CategoryTag.BED],
+  ["Collars", CategoryTag.COLLAR],
 ];
 
 final tabTitles = tabsInfo.map((tabInfo) => tabInfo[0].toString()).toList();
