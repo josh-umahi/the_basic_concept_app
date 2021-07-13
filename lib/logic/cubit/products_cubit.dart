@@ -45,59 +45,65 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-//   Future<void> getCartProducts(Map<String, String> idToCategoryTagMap) async {
-//     emit(ProductsLoading());
-//     try {
-//       List<String> distinctCategoryTags = idToCategoryTagMap.values.toList();
-//       final possibleCartProducts =
-//           _retreivePossibleCartProducts(distinctCategoryTags);
+  Future<void> getCartProducts(Map<String, String> idToCategoryTagMap) async {
+    emit(ProductsLoading());
+    try {
+      final List<String> allIds = idToCategoryTagMap.keys.toList();
+      final List<String> distinctCategoryTags =
+          idToCategoryTagMap.values.toSet().toList();
 
-// final List<Product> products = idToCategoryTagMap.keys.map((e) => null)
-        
+      final possibleCartProducts =
+          await _retreivePossibleCartProducts(distinctCategoryTags);
+      final List<Product> products = possibleCartProducts
+          .where((product) => allIds.contains(product.id))
+          .toList();
 
-//       emit(ProductsLoaded(products));
-//     } catch (e) {
-//       emit(ProductsError(e));
-//     }
-//   }
+      // for (var product in possibleCartProducts) {
+      //   print(product);
+      // }
+      emit(ProductsLoaded(products));
+    } catch (e) {
+      emit(ProductsError(e));
+    }
+  }
 
-//   Future<List<Product>> _retreivePossibleCartProducts(
-//       List<String> distinctCategoryTags) async {
-//     List<Product> possibleCartProducts = [];
-//     bool hasAddedBedsAndHouses = false;
+  Future<List<Product>> _retreivePossibleCartProducts(
+      List<String> distinctCategoryTags) async {
+    List<Product> possibleCartProducts = [];
+    bool hasAddedBedsAndHouses = false;
 
-//     for (var categoryTag in distinctCategoryTags) {
-//       switch (categoryTag) {
-//         case ItemCategory.APPAREL:
-//           possibleCartProducts.addAll(await _productRepository.getApparels());
-//           break;
-//         case ItemCategory.BED:
-//           if (!hasAddedBedsAndHouses) {
-//             possibleCartProducts
-//                 .addAll(await _productRepository.getBedsAndHouses());
-//             hasAddedBedsAndHouses = true;
-//           }
-//           break;
-//         case ItemCategory.BOWL:
-//           possibleCartProducts.addAll(await _productRepository.getBowls());
-//           break;
-//         case ItemCategory.COLLAR:
-//           possibleCartProducts.addAll(await _productRepository.getCollars());
-//           break;
-//         case ItemCategory.HOUSE:
-//           if (!hasAddedBedsAndHouses) {
-//             possibleCartProducts
-//                 .addAll(await _productRepository.getBedsAndHouses());
-//             hasAddedBedsAndHouses = true;
-//           }
-//           break;
-//         default:
-//           print(
-//               "The default was reached in retreivePossibleCartProducts method of ProductsCubit");
-//           break;
-//       }
-//     }
+    for (var categoryTag in distinctCategoryTags) {
+      switch (categoryTag) {
+        case ItemCategory.APPAREL:
+          possibleCartProducts.addAll(await _productRepository.getApparels());
+          break;
+        case ItemCategory.BED:
+          if (!hasAddedBedsAndHouses) {
+            possibleCartProducts
+                .addAll(await _productRepository.getBedsAndHouses());
+            hasAddedBedsAndHouses = true;
+          }
+          break;
+        case ItemCategory.BOWL:
+          possibleCartProducts.addAll(await _productRepository.getBowls());
+          break;
+        case ItemCategory.COLLAR:
+          possibleCartProducts.addAll(await _productRepository.getCollars());
+          break;
+        case ItemCategory.HOUSE:
+          if (!hasAddedBedsAndHouses) {
+            possibleCartProducts
+                .addAll(await _productRepository.getBedsAndHouses());
+            hasAddedBedsAndHouses = true;
+          }
+          break;
+        default:
+          print(
+              "The default was reached in retreivePossibleCartProducts method of ProductsCubit");
+          break;
+      }
+    }
 
-//     return possibleCartProducts;
-//   }
+    return possibleCartProducts;
+  }
 }

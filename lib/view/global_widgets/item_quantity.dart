@@ -16,11 +16,13 @@ class ItemQuantity extends StatelessWidget {
   final String id;
   final String categoryTag;
   final double width;
+  final bool isOnCartScreen;
 
   const ItemQuantity({
     required this.id,
     required this.categoryTag,
     required this.width,
+    this.isOnCartScreen = false,
   });
 
   @override
@@ -114,6 +116,7 @@ class QuantityButton extends StatelessWidget {
                 ),
           border: customBorders(),
         ),
+        // child: Icon(Icons.delete, color: Colors.black, size: 20,),
         child: Text(
           unicodeString,
           style: TextStyle(

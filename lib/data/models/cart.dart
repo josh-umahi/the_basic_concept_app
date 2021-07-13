@@ -19,7 +19,7 @@ class Cart {
     if (quantity == 0) {
       _removeItem(id);
     }
-    CartSharedPreferences.setCartString(_convertCartToString());
+    CartSharedPreferences.setCartString(convertCartToString());
   }
 
   void _removeItem(String id) {
@@ -27,12 +27,13 @@ class Cart {
     _itemCategories.remove(id);
   }
 
-  String _convertCartToString() {
+  String convertCartToString() {
     String cartString = "";
     for (var id in _itemQuantities.keys) {
       cartString += "$id,${_itemQuantities[id]},${_itemCategories[id]}|";
     }
     cartString = cartString.substring(0, cartString.length - 1);
+    // print(cartString);
     return cartString;
   }
 

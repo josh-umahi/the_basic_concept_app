@@ -18,49 +18,11 @@ class ProductCategoryTab extends StatelessWidget {
             },
           );
         } else if (state is ProductsLoading) {
-          return Column(
-            children: [
-              LinearProgressIndicator(
-                backgroundColor: Colors.transparent,
-                color: Colors.black,
-                minHeight: linearIndicatorHeight,
-              ),
-            ],
-          );
+          return LoadingLinearProgress();
         } else {
-          return ErrorContainer();
+          return InternetErrorContainer();
         }
       },
-    );
-  }
-}
-
-class ErrorContainer extends StatelessWidget {
-  const ErrorContainer({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.wifi_off_sharp,
-            color: Colors.orange[800],
-          ),
-          SizedBox(height: 5),
-          Text(
-            "NO NETWORK CONNECTION",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.orange[800],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

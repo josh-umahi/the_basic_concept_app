@@ -7,9 +7,11 @@ import '../../../logic/cubit/products_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../../data/models/product.dart';
 import '../../global_widgets/item_quantity.dart';
+import '../../global_widgets/loading_linear_progress.dart';
+import '../../global_widgets/internet_error_container.dart';
 
-part 'widgets/screen_tab_bar.dart';
-part 'widgets/screen_tab_bar_view.dart';
+part 'widgets/shop_tab_bar.dart';
+part 'widgets/shop_tab_bar_view.dart';
 part 'widgets/product_category_tab.dart';
 part 'widgets/shop_item.dart';
 part 'constants/tabs_info.dart';
@@ -90,7 +92,7 @@ class _ShopScreenState extends State<ShopScreen>
                   padding: const EdgeInsets.symmetric(
                     horizontal: ourPaddingHorizontal * 0.4,
                   ),
-                  child: HeaderTabBar(
+                  child: ShopTabBar(
                     tabController: _tabController,
                     onTapEvent: updateHeaderText,
                   ),
@@ -100,7 +102,7 @@ class _ShopScreenState extends State<ShopScreen>
             ),
           ),
           Expanded(
-            child: ScreenTabBarView(tabController: _tabController),
+            child: ShopTabBarView(tabController: _tabController),
           ),
         ],
       ),

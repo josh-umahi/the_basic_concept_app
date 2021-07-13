@@ -45,7 +45,7 @@ class Product extends Equatable {
     return "\$${priceAsDouble.toStringAsFixed(2)}";
   }
 
-  String get category {
+  String get categoryTag {
     switch (categoryAsStr) {
       case "apparel":
         return ItemCategory.APPAREL;
@@ -74,7 +74,7 @@ class Product extends Equatable {
       title: $title
       imageURL: $imageURL
       price: $price
-      category: $category
+      category: $categoryTag
     """;
   }
 }

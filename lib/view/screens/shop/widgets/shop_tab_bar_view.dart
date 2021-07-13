@@ -1,8 +1,8 @@
 part of '../shop_screen.dart';
 
-class ScreenTabBarView extends StatelessWidget {
+class ShopTabBarView extends StatelessWidget {
   final TabController tabController;
-  const ScreenTabBarView({
+  const ShopTabBarView({
     required this.tabController,
   });
 

@@ -1,6 +1,13 @@
 part of '../cart_screen.dart';
 
-class CartSummary extends StatelessWidget {
+class CartSummaryContainer extends StatelessWidget {
+  final String subtotal;
+  final String quantity;
+  const CartSummaryContainer({
+    required this.subtotal,
+    required this.quantity,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,8 +21,8 @@ class CartSummary extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SummaryItem(title: "SUBTOTAL", result: "\$111.00"),
-          SummaryItem(title: "QUANTITY", result: "3"),
+          SummaryItem(title: "SUBTOTAL", result: subtotal),
+          SummaryItem(title: "QUANTITY", result: quantity),
         ],
       ),
     );

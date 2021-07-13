@@ -7,10 +7,10 @@ class AppRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-      //   return MaterialPageRoute(
-      //     builder: (_) => ShopScreen(),
-      //   );
-      // case '/cart':
+        return MaterialPageRoute(
+          builder: (_) => ShopScreen(),
+        );
+      case '/cart':
         return MaterialPageRoute(
           builder: (_) => CartScreen(),
         );

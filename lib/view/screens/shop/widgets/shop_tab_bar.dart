@@ -1,9 +1,9 @@
 part of '../shop_screen.dart';
 
-class HeaderTabBar extends StatelessWidget {
+class ShopTabBar extends StatelessWidget {
   final TabController tabController;
   final void Function() onTapEvent;
-  HeaderTabBar({
+  ShopTabBar({
     required this.tabController,
     required this.onTapEvent,
   });
