@@ -9,8 +9,8 @@ import '../../global_widgets/item_quantity.dart';
 import '../../../data/models/product.dart';
 import '../../../logic/cubit/cart_cubit.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
-import '../../../data/models/cart.dart';
 import '../../../logic/cubit/products_cubit.dart';
+import '../../../logic/cubit/cart_summary_cubit.dart';
 import '../../../view/global_widgets/item_quantity.dart';
 
 part 'widgets/cart_item.dart';
@@ -44,12 +44,9 @@ class _CartScreenState extends State<CartScreen> {
             size: appBarRightActionSize,
           ),
           AppBarMiddleSizedBox,
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Icon(
-              Icons.account_circle_outlined,
-              size: appBarRightActionSize,
-            ),
+          Icon(
+            Icons.account_circle_outlined,
+            size: appBarRightActionSize,
           ),
           AppBarSideSizedBox,
         ],
@@ -63,67 +60,53 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.only(left: ourPaddingHorizontal),
             child: HeaderText("My Cart"),
           ),
-          Expanded(
-            child: BlocBuilder<CartCubit, Cart>(
-              builder: (context, state) {
-                final productsState = state.productsCubit.state;
-                if (productsState is ProductsLoaded) {
-                  return Stack(
-                    children: [
-                      ListView(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: ourPaddingHorizontal,
-                          vertical: ourPaddingVertical,
-                        ),
+          BlocProvider<ProductsCubit>(
+            create: (_) {
+              final cart = context.read<CartCubit>().state;
+              return ProductsCubit()..getCartProducts(cart.idToCategoryTag);
+            },
+            child: Expanded(
+              child: BlocBuilder<ProductsCubit, ProductsState>(
+                builder: (context, state) {
+                  if (state is ProductsLoaded) {
+                    final cartCubit = context.read<CartCubit>();
+                    final products = state.products;
+                    for (var i = 0; i < products.length; i++) {
+                      products[i]
+                          .productQuantityCubit
+                          .registerCartCubit(cartCubit);
+                    }
+
+                    return BlocProvider<CartSummaryCubit>(
+                      create: (_) => CartSummaryCubit(products),
+                      child: Stack(
                         children: [
-                          ...productsState.products.map(
-                            (product) => CartItem(product),
+                          ListView(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: ourPaddingHorizontal,
+                              vertical: ourPaddingVertical,
+                            ),
+                            children: [
+                              ...products.map(
+                                (product) => CartItem(product),
+                              ),
+                              CartSummaryContainer(),
+                              SizedBox(
+                                height: heightOfButtonPlusBottomMargin * 1.4,
+                              ),
+                            ],
                           ),
-                          CartSummaryContainer(
-                            subtotal: state.subtotal,
-                            quantity: state.quantity,
-                          ),
-                          SizedBox(
-                            height: heightOfButtonPlusBottomMargin * 1.4,
-                          ),
+                          NavToCheckoutButton(),
                         ],
                       ),
-                      NavToCheckoutButton(),
-                    ],
-                  );
-                } else {
-                  return Text("Something's not right");
-                }
-
-                //   if (state is CartLoaded) {
-                //     return Stack(
-                //       children: [
-                //         ListView(
-                //           padding: const EdgeInsets.symmetric(
-                //             horizontal: ourPaddingHorizontal,
-                //             vertical: ourPaddingVertical,
-                //           ),
-                //           children: [
-                //             ...state.cartSummary.products.map(
-                //               (product) => CartItem(product),
-                //             ),
-                //             CartSummaryContainer(
-                //               subtotal: state.cartSummary.subtotal,
-                //               quantity: state.cartSummary.quantity,
-                //             ),
-                //             SizedBox(
-                //                 height: heightOfButtonPlusBottomMargin * 1.4,),
-                //           ],
-                //         ),
-                //         NavToCheckoutButton(),
-                //       ],
-                //     );
-                //   } else if (state is CartLoading) {
-                //     return LoadingLinearProgress();
-                //   } else {
-                //     return InternetErrorContainer();
-                //   }
-              },
+                    );
+                  } else if (state is ProductsLoading) {
+                    return LoadingLinearProgress();
+                  } else {
+                    return InternetErrorContainer();
+                  }
+                },
+              ),
             ),
           ),
         ],

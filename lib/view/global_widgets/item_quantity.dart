@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constant.dart';
 import '../../logic/cubit/product_quantity_cubit.dart';
-import '../../logic/cubit/cart_cubit.dart';
 
 Border customBorders([Color color = ourLightGrey]) {
   return Border.all(

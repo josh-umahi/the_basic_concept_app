@@ -14,7 +14,6 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   Future<void> getProducts(String categoryTag) async {
     emit(ProductsLoading());
-
     try {
       final List<Product> products;
       switch (categoryTag) {

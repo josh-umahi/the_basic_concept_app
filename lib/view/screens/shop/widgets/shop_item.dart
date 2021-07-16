@@ -2,7 +2,8 @@ part of '../shop_screen.dart';
 
 class ShopItem extends StatelessWidget {
   final Product product;
-  const ShopItem(this.product);
+  final CartCubit cartCubit;
+  const ShopItem(this.product, this.cartCubit);
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +47,10 @@ class ShopItem extends StatelessWidget {
                   ProductPrice(product.price),
                   Spacer(),
                   BlocProvider<ProductQuantityCubit>(
-                    create: (_) => ProductQuantityCubit(
-                      id: product.id,
-                      categoryTag: product.categoryTag,
-                      cartCubit: context.read<CartCubit>(),
-                    ),
+                    create: (_) {
+                      return product.productQuantityCubit
+                        ..registerCartCubit(cartCubit);
+                    },
                     child: ItemQuantity(width: 140),
                   ),
                 ],

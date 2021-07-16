@@ -1,11 +1,13 @@
 import 'category_tag.dart';
+import '../../logic/cubit/product_quantity_cubit.dart';
 
-class Product extends Object {
+class Product {
   final String id;
   final String title;
   final String imageURL;
   final double priceAsDouble;
   final String categoryAsStr;
+  late ProductQuantityCubit productQuantityCubit;
 
   Product({
     required this.id,
@@ -13,7 +15,9 @@ class Product extends Object {
     required this.imageURL,
     required this.priceAsDouble,
     required this.categoryAsStr,
-  });
+  }) {
+    productQuantityCubit = ProductQuantityCubit(id, categoryTag, priceAsDouble);
+  }
 
   factory Product.fromJson(Map<String, dynamic> json) {
     try {

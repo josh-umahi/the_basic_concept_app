@@ -1,30 +1,32 @@
 part of '../cart_screen.dart';
 
 class CartSummaryContainer extends StatelessWidget {
-  final String subtotal;
-  final String quantity;
-  const CartSummaryContainer({
-    required this.subtotal,
-    required this.quantity,
-  });
+  const CartSummaryContainer();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      width: double.infinity,
-      height: 113,
-      decoration: BoxDecoration(
-        color: ourLightGrey,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SummaryItem(title: "SUBTOTAL", result: subtotal),
-          SummaryItem(title: "QUANTITY", result: quantity),
-        ],
-      ),
+    return BlocBuilder<CartSummaryCubit, CartSummaryState>(
+      builder: (context, state) {
+        final subtotal = "\$${state.subtotal.toStringAsFixed(2)}";
+        final quantity = state.quantity.toString();
+
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          height: 113,
+          decoration: BoxDecoration(
+            color: ourLightGrey,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SummaryItem(title: "SUBTOTAL", result: subtotal),
+              SummaryItem(title: "QUANTITY", result: quantity),
+            ],
+          ),
+        );
+      },
     );
   }
 }

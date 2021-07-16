@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/models/cart.dart';
 import '../logic/cubit/cart_cubit.dart';
 import '../utils/cart_shared_preferences.dart';
 import 'view/router/app_router.dart';
@@ -24,9 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CartCubit>(
       create: (_) {
-        final initialCart =
-            Cart.fromString(CartSharedPreferences.getCartString());
-        return CartCubit(initialCart);
+        final initialCartString = CartSharedPreferences.getCartString();
+        return CartCubit(initialCartString!);
       },
       child: MaterialApp(
         title: 'The Basic Concept',

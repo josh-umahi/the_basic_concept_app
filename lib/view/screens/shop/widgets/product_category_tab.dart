@@ -3,6 +3,7 @@ part of '../shop_screen.dart';
 class ProductCategoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cartCubit = context.read<CartCubit>();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
         if (state is ProductsLoaded) {
@@ -14,7 +15,7 @@ class ProductCategoryTab extends StatelessWidget {
             ),
             itemCount: products.length,
             itemBuilder: (context, i) {
-              return ShopItem(products[i]);
+              return ShopItem(products[i], cartCubit);
             },
           );
         } else if (state is ProductsLoading) {

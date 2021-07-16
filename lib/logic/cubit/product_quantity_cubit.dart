@@ -1,43 +1,49 @@
 import 'package:bloc/bloc.dart';
 
 import 'cart_cubit.dart';
+import 'cart_summary_cubit.dart';
 
 class ProductQuantityCubit extends Cubit<int> {
   final String id;
   final String categoryTag;
-  final CartCubit cartCubit;
+  final double priceAsDouble;
+  late CartCubit cartCubit;
+  CartSummaryCubit? cartSummaryCubit;
 
-  ProductQuantityCubit({
-    required this.id,
-    required this.categoryTag,
-    required this.cartCubit,
-  }) : super(0) {
+  ProductQuantityCubit(
+    this.id,
+    this.categoryTag,
+    this.priceAsDouble,
+  ) : super(0);
+
+  void registerCartCubit(CartCubit cartCubit) {
+    this.cartCubit = cartCubit;
     final cart = cartCubit.state;
     if (cart.idToQuantity.containsKey(id)) {
-      replaceQuantity(cart.idToQuantity[id]!);
+      emit(cart.idToQuantity[id]!);
     }
   }
 
-  void updateCartCubit() {
-    final cart = cartCubit.state;
-    cart.changeQuantity(id, state, categoryTag);
-    cartCubit.replaceCart(cart);
+  void registerCartSummaryCubit(CartSummaryCubit cubit) {
+    cartSummaryCubit = cubit;
   }
 
-  void replaceQuantity(int quantity) {
-    emit(quantity);
-    updateCartCubit();
+  void updateExternalCubit(QuantityAction action) {
+    cartCubit.replaceCart(id, state, categoryTag);
+    if (cartSummaryCubit != null) {
+      cartSummaryCubit!.updateCartSummary(action, priceAsDouble);
+    }
   }
 
   void increment() {
     emit(state + 1);
-    updateCartCubit();
+    updateExternalCubit(QuantityAction.INCREMENT);
   }
 
   void decrement() {
     if (state != 0) {
       emit(state - 1);
-      updateCartCubit();
+      updateExternalCubit(QuantityAction.DECREMENT);
     }
   }
 }
