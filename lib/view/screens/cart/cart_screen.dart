@@ -11,17 +11,21 @@ import '../../../logic/cubit/cart_cubit.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
 import '../../../logic/cubit/products_cubit.dart';
 import '../../../logic/cubit/cart_summary_cubit.dart';
+import '../../../logic/cubit/global_pqc_cubit.dart';
 import '../../../view/global_widgets/item_quantity.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/cart_summary_container.dart';
 part 'widgets/nav_to_checkout_button.dart';
+part 'widgets/cart_item_actions_row.dart';
 
 const heightOfButtonPlusBottomMargin = 85.0;
 
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final idToPQC = createIdToPQC(context.read<GlobalPQCsCubit>());
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -67,15 +71,20 @@ class CartScreen extends StatelessWidget {
                     final cartCubit = context.read<CartCubit>();
                     final products = state.products;
                     for (var i = 0; i < products.length; i++) {
-                      products[i]
-                          .productQuantityCubit
-                          .registerCartCubit(cartCubit);
+                      final product = products[i];
+                      if (idToPQC.keys.contains(product.id)) {
+                        product.productQuantityCubit = idToPQC[product.id]!;
+                      }
+                      product.productQuantityCubit.registerCartCubit(cartCubit);
                     }
 
                     return BlocProvider<CartSummaryCubit>(
                       create: (_) {
-                        final productsCubit = context.read<ProductsCubit>();
-                        return CartSummaryCubit(products, productsCubit);
+                        return CartSummaryCubit(
+                          products,
+                          context.read<ProductsCubit>(),
+                          context.read<GlobalPQCsCubit>(),
+                        );
                       },
                       child: Stack(
                         children: [
@@ -86,8 +95,11 @@ class CartScreen extends StatelessWidget {
                             ),
                             children: [
                               ...products.map(
-                                (product) =>
-                                    CartItem(ValueKey(product.id), product),
+                                (product) => CartItem(
+                                  ValueKey(product.id),
+                                  product,
+                                  idToPQC.keys.contains(product.id),
+                                ),
                               ),
                               CartSummaryContainer(),
                               SizedBox(
@@ -112,4 +124,12 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Map<String, ProductQuantityCubit> createIdToPQC(GlobalPQCsCubit cubit) {
+  final Map<String, ProductQuantityCubit> idToPQC = {};
+  cubit.state.forEach((productQuantityCubit) {
+    idToPQC[productQuantityCubit.id] = productQuantityCubit;
+  });
+  return idToPQC;
 }

@@ -18,7 +18,20 @@ Future main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _appRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    _appRouter = AppRouter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartCubit>(
@@ -40,8 +53,14 @@ class MyApp extends StatelessWidget {
           fontFamily: "Nunito",
         ),
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRouter.generateRoute,
+        onGenerateRoute: _appRouter.generateRoute,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }

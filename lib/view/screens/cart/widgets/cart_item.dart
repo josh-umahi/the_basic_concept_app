@@ -2,10 +2,21 @@ part of '../cart_screen.dart';
 
 class CartItem extends StatelessWidget {
   final Product product;
-  const CartItem(Key key, this.product) : super(key: key);
+
+  /// We use BlocProvider.value whenever this product's productQuantityCubit
+  /// is contained in the GlobalPQCsCubit to ensure that its productQuantityCubit
+  /// remains open even after we've left the cart screen
+  final bool isInGlobalPQCsCubit;
+
+  const CartItem(Key key, this.product, this.isInGlobalPQCsCubit)
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cartSummaryCubit = context.read<CartSummaryCubit>();
+    final productQuantityCubit = product.productQuantityCubit
+      ..registerCartSummaryCubit(cartSummaryCubit);
+
     return Container(
       margin: const EdgeInsets.only(bottom: ourPaddingVertical),
       decoration: BoxDecoration(
@@ -53,30 +64,15 @@ class CartItem extends StatelessWidget {
             ],
           ),
           SizedBox(height: 15),
-          BlocProvider<ProductQuantityCubit>(
-            create: (_) {
-              final cartSummaryCubit = context.read<CartSummaryCubit>();
-              return product.productQuantityCubit
-                ..registerCartSummaryCubit(cartSummaryCubit);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ItemQuantity(width: 170, isInCart: true),
-                GestureDetector(
-                  onTap: () => product.productQuantityCubit.decrementToZero(),
-                  child: Text(
-                    "REMOVE ITEM",
-                    style: TextStyle(
-                      color: ourDarkGrey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+          isInGlobalPQCsCubit
+              ? BlocProvider.value(
+                  value: productQuantityCubit,
+                  child: CartItemActionsRow(productQuantityCubit),
                 )
-              ],
-            ),
-          ),
+              : BlocProvider<ProductQuantityCubit>(
+                  create: (_) => productQuantityCubit,
+                  child: CartItemActionsRow(productQuantityCubit),
+                ),
           SizedBox(height: 10),
         ],
       ),

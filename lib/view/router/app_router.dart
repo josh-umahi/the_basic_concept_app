@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/shop/shop_screen.dart';
 import '../screens/cart/cart_screen.dart';
+import '../../logic/cubit/global_pqc_cubit.dart';
 
 class AppRouter {
-  static Route generateRoute(RouteSettings settings) {
+  final _globalPQCsCubit = GlobalPQCsCubit();
+
+  Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => ShopScreen(),
+          builder: (_) => BlocProvider.value(
+            value: _globalPQCsCubit,
+            child: ShopScreen(),
+          ),
         );
       case '/cart':
         return MaterialPageRoute(
-          builder: (_) => CartScreen(),
+          builder: (_) => BlocProvider.value(
+            value: _globalPQCsCubit,
+            child: CartScreen(),
+          ),
         );
       default:
         return _errorRoute();
@@ -27,5 +37,9 @@ class AppRouter {
         ),
       ),
     );
+  }
+
+  dispose() {
+    _globalPQCsCubit.close();
   }
 }

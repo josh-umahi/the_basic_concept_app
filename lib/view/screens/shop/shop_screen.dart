@@ -10,6 +10,7 @@ import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
+import '../../../logic/cubit/global_pqc_cubit.dart';
 import '../../../logic/cubit/cart_cubit.dart';
 
 part 'widgets/shop_tab_bar.dart';

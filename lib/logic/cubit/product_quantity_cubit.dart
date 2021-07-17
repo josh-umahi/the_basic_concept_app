@@ -28,6 +28,10 @@ class ProductQuantityCubit extends Cubit<int> {
     cartSummaryCubit = cubit;
   }
 
+  void deregisterCartSummaryCubit() {
+    cartSummaryCubit = null;
+  }
+
   void updateExternalCubits(QuantityAction action) {
     cartCubit.replaceCart(id, state, categoryTag);
     if (cartSummaryCubit != null) {
@@ -55,4 +59,10 @@ class ProductQuantityCubit extends Cubit<int> {
     emit(0);
     updateExternalCubits(QuantityAction.DECREMENTTOZERO);
   }
+
+  // @override
+  // Future<void> close() {
+  //   print("ProductQuantityCubit with id: $id close()");
+  //   return super.close();
+  // }
 }
