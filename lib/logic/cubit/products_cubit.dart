@@ -54,4 +54,15 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsError(e));
     }
   }
+
+  void removeCartProductOnScreen(String idToRemove) {
+    final productsState = state;
+    if (productsState is ProductsLoaded) {
+      final products = List<Product>.from(productsState.products);
+      products.removeWhere((product) => product.id == idToRemove);
+      emit(ProductsLoaded(products));
+    } else {
+      throw ("state is not ProductsLoaded");
+    }
+  }
 }

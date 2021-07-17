@@ -1,32 +1,58 @@
+import 'dart:async'; 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/models/product.dart';
+import '../../logic/cubit/products_cubit.dart';
 
 part 'cart_summary_state.dart';
 
 enum QuantityAction {
   INCREMENT,
   DECREMENT,
+  DECREMENTTOZERO,
 }
 
 class CartSummaryCubit extends Cubit<CartSummaryState> {
-  CartSummaryCubit(List<Product> products)
-      : super(
-          CartSummaryState.fromProducts(products),
-        );
+  final ProductsCubit productsCubit;
+  late StreamSubscription productsStreamSubcsription;
+  CartSummaryCubit(List<Product> products, this.productsCubit)
+      : super(CartSummaryState.fromProducts(products)) {
+    productsStreamSubcsription = monitorProductsStreamSubcsription();
+  }
 
-  void updateCartSummary(QuantityAction action, double priceAsDouble) {
+  void updateCartSummary(QuantityAction action, double priceAsDouble,
+      {String? idToRemove}) {
     var subtotal = state.subtotal;
     var quantity = state.quantity;
+
     if (action == QuantityAction.INCREMENT) {
       subtotal += priceAsDouble;
       quantity++;
     } else {
       subtotal -= priceAsDouble;
       quantity--;
+      if (idToRemove != null) {
+        productsCubit.removeCartProductOnScreen(idToRemove);
+      }
     }
+
     emit(CartSummaryState(subtotal, quantity));
+  }
+
+  StreamSubscription<ProductsState> monitorProductsStreamSubcsription() {
+    return productsCubit.stream.listen((productsState) {
+      if (productsState is ProductsLoaded) {
+        emit(CartSummaryState.fromProducts(productsState.products));
+      }
+      // print("ProductsState changed, productsStreamSubcsription activated");
+    });
+  }
+
+  @override
+  Future<void> close() {
+    productsStreamSubcsription.cancel();
+    return super.close();
   }
 }

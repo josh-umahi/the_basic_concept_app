@@ -28,22 +28,31 @@ class ProductQuantityCubit extends Cubit<int> {
     cartSummaryCubit = cubit;
   }
 
-  void updateExternalCubit(QuantityAction action) {
+  void updateExternalCubits(QuantityAction action) {
     cartCubit.replaceCart(id, state, categoryTag);
     if (cartSummaryCubit != null) {
-      cartSummaryCubit!.updateCartSummary(action, priceAsDouble);
+      cartSummaryCubit!.updateCartSummary(
+        action,
+        priceAsDouble,
+        idToRemove: action == QuantityAction.DECREMENTTOZERO ? id : null,
+      );
     }
   }
 
   void increment() {
     emit(state + 1);
-    updateExternalCubit(QuantityAction.INCREMENT);
+    updateExternalCubits(QuantityAction.INCREMENT);
   }
 
   void decrement() {
     if (state != 0) {
       emit(state - 1);
-      updateExternalCubit(QuantityAction.DECREMENT);
+      updateExternalCubits(QuantityAction.DECREMENT);
     }
+  }
+
+  void decrementToZero() {
+    emit(0);
+    updateExternalCubits(QuantityAction.DECREMENTTOZERO);
   }
 }

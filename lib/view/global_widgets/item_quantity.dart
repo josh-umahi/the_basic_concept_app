@@ -13,9 +13,11 @@ Border customBorders([Color color = ourLightGrey]) {
 
 class ItemQuantity extends StatelessWidget {
   final double width;
+  final bool isInCart;
 
   const ItemQuantity({
     required this.width,
+    this.isInCart = false,
   });
 
   @override
@@ -31,8 +33,9 @@ class ItemQuantity extends StatelessWidget {
                 // Decrease Button
                 unicodeString: "\u2013",
                 widthOfParent: width,
-                isOnLeft: true,
                 action: context.read<ProductQuantityCubit>().decrement,
+                isOnLeft: true,
+                showDeleteButton: isInCart && state == 1,
               ),
               Container(
                 width: 0.4 * width,
@@ -69,14 +72,16 @@ class ItemQuantity extends StatelessWidget {
 class QuantityButton extends StatelessWidget {
   final String unicodeString;
   final double widthOfParent;
-  final bool isOnLeft;
   final void Function() action;
+  final bool isOnLeft;
+  final bool showDeleteButton;
 
   const QuantityButton({
     required this.unicodeString,
     required this.widthOfParent,
-    this.isOnLeft = false,
     required this.action,
+    this.isOnLeft = false,
+    this.showDeleteButton = false,
   });
 
   @override
@@ -85,7 +90,9 @@ class QuantityButton extends StatelessWidget {
     final borderRadius = Radius.circular(5);
 
     return GestureDetector(
-      onTap: () => action(),
+      onTap: () => !showDeleteButton
+          ? action()
+          : context.read<ProductQuantityCubit>().decrementToZero(),
       child: Container(
         width: width,
         alignment: Alignment.center,
@@ -102,14 +109,19 @@ class QuantityButton extends StatelessWidget {
                 ),
           border: customBorders(),
         ),
-        // child: Icon(Icons.delete, color: Colors.black, size: 20,),
-        child: Text(
-          unicodeString,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
+        child: !showDeleteButton
+            ? Text(
+                unicodeString,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              )
+            : Icon(
+                Icons.delete,
+                color: Colors.black.withOpacity(0.6),
+                size: 19,
+              ),
       ),
     );
   }

@@ -19,12 +19,7 @@ part 'widgets/nav_to_checkout_button.dart';
 
 const heightOfButtonPlusBottomMargin = 85.0;
 
-class CartScreen extends StatefulWidget {
-  @override
-  _CartScreenState createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
+class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +73,10 @@ class _CartScreenState extends State<CartScreen> {
                     }
 
                     return BlocProvider<CartSummaryCubit>(
-                      create: (_) => CartSummaryCubit(products),
+                      create: (_) {
+                        final productsCubit = context.read<ProductsCubit>();
+                        return CartSummaryCubit(products, productsCubit);
+                      },
                       child: Stack(
                         children: [
                           ListView(
@@ -88,7 +86,8 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             children: [
                               ...products.map(
-                                (product) => CartItem(product),
+                                (product) =>
+                                    CartItem(ValueKey(product.id), product),
                               ),
                               CartSummaryContainer(),
                               SizedBox(

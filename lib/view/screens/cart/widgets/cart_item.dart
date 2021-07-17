@@ -2,7 +2,7 @@ part of '../cart_screen.dart';
 
 class CartItem extends StatelessWidget {
   final Product product;
-  const CartItem(this.product);
+  const CartItem(Key key, this.product) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,9 @@ class CartItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ItemQuantity(width: 170),
+                ItemQuantity(width: 170, isInCart: true),
                 GestureDetector(
-                  onTap: () => context.read<ProductQuantityCubit>(),
+                  onTap: () => product.productQuantityCubit.decrementToZero(),
                   child: Text(
                     "REMOVE ITEM",
                     style: TextStyle(

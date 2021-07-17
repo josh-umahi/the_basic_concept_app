@@ -39,7 +39,7 @@ class Cart {
   }
 
   factory Cart.fromString(String? someCartString) {
-    print(someCartString);
+    // print(someCartString);
     if (someCartString == null || someCartString == "") return Cart({}, {});
 
     final cartAsString = someCartString.split("|");
