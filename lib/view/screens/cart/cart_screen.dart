@@ -18,6 +18,7 @@ part 'widgets/cart_item.dart';
 part 'widgets/cart_summary_container.dart';
 part 'widgets/nav_to_checkout_button.dart';
 part 'widgets/cart_item_actions_row.dart';
+part 'widgets/empty_cart.dart';
 
 const heightOfButtonPlusBottomMargin = 85.0;
 
@@ -86,29 +87,43 @@ class CartScreen extends StatelessWidget {
                           context.read<GlobalPQCsCubit>(),
                         );
                       },
-                      child: Stack(
-                        children: [
-                          ListView(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: ourPaddingHorizontal,
-                              vertical: ourPaddingVertical,
-                            ),
-                            children: [
-                              ...products.map(
-                                (product) => CartItem(
-                                  ValueKey(product.id),
-                                  product,
-                                  idToPQC.keys.contains(product.id),
-                                ),
-                              ),
-                              CartSummaryContainer(),
-                              SizedBox(
-                                height: heightOfButtonPlusBottomMargin * 1.4,
-                              ),
-                            ],
-                          ),
-                          NavToCheckoutButton(),
-                        ],
+                      child: Builder(
+                        builder: (context) {
+                          final quantityIsNotZero = context
+                                  .watch<CartSummaryCubit>()
+                                  .state
+                                  .quantity !=
+                              0;
+
+                          return (quantityIsNotZero)
+                              ? Stack(
+                                  children: [
+                                    ListView(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: ourPaddingHorizontal,
+                                        vertical: ourPaddingVertical,
+                                      ),
+                                      children: [
+                                        ...products.map(
+                                          (product) => CartItem(
+                                            ValueKey(product.id),
+                                            product,
+                                            idToPQC.keys.contains(product.id),
+                                          ),
+                                        ),
+                                        CartSummaryContainer(),
+                                        SizedBox(
+                                          height:
+                                              heightOfButtonPlusBottomMargin *
+                                                  1.4,
+                                        ),
+                                      ],
+                                    ),
+                                    NavToCheckoutButton(),
+                                  ],
+                                )
+                              : EmptyCart();
+                        },
                       ),
                     );
                   } else if (state is ProductsLoading) {
