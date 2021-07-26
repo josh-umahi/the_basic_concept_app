@@ -1,9 +1,11 @@
 part of '../shop_screen.dart';
 
-class ProductCategoryTab extends StatelessWidget {
+class ProductsListedTab extends StatelessWidget {
+  final bool isTopPicks;
+  const ProductsListedTab({required this.isTopPicks});
+
   @override
   Widget build(BuildContext context) {
-    final cartCubit = context.read<CartCubit>();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
         if (state is ProductsLoaded) {
@@ -12,16 +14,9 @@ class ProductCategoryTab extends StatelessWidget {
               products.map((product) => product.productQuantityCubit).toList();
           context.read<GlobalPQCsCubit>().emit(productQuantityCubits);
 
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(
-              horizontal: ourPaddingHorizontal,
-              vertical: ourPaddingVertical,
-            ),
-            itemCount: products.length,
-            itemBuilder: (context, i) {
-              return ShopItem(products[i], cartCubit);
-            },
-          );
+          return isTopPicks
+              ? TopPicksListed(products)
+              : ProductsListed(products);
         } else if (state is ProductsLoading) {
           return LoadingLinearProgress();
         } else {

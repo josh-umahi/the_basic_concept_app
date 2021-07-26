@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+  // Next time I'll use HydratedBloc because it's more efficient
 class CartSharedPreferences {
   static late SharedPreferences _preferences;
 

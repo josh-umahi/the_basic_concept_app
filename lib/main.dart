@@ -7,7 +7,7 @@ import '../utils/cart_shared_preferences.dart';
 import 'view/router/app_router.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // Gives us access to native code like local storage
   await CartSharedPreferences.init();
 
   await SystemChrome.setPreferredOrientations([

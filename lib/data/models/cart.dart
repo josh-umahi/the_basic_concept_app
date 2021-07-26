@@ -38,6 +38,7 @@ class Cart {
     return cartString;
   }
 
+  // Next time I'll just use json format. It's more widely used
   factory Cart.fromString(String? someCartString) {
     // print(someCartString);
     if (someCartString == null || someCartString == "") return Cart({}, {});

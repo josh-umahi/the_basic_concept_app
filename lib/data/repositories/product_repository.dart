@@ -8,8 +8,27 @@ import '../repositories/unencoded_path.dart';
 class ProductRepository {
   final _baseUrl = "the-basic-concept-api.herokuapp.com";
 
+  Future<List<Product>> getTopPicks() async {
+    final uri = Uri.https(_baseUrl, UnencodedPath.TOPPICKS);
+    final client = http.Client();
+    final response = await client.get(uri);
+    final json = jsonDecode(response.body) as List;
+
+    try {
+      final List<Product> topPicks = [];
+      for (var obj in json) {
+        topPicks.add(Product.fromJson(obj));
+      }
+      return topPicks;
+    } catch (e) {
+      throw (e);
+    } finally {
+      client.close();
+    }
+  }
+
   Future<List<Product>> getApparels() async {
-    final uri = Uri.https(_baseUrl, "/apparels");
+    final uri = Uri.https(_baseUrl, UnencodedPath.APPAREL);
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -28,8 +47,8 @@ class ProductRepository {
   }
 
   Future<List<Product>> getBedsAndHouses() async {
-    final uri1 = Uri.https(_baseUrl, "/beds");
-    final uri2 = Uri.https(_baseUrl, "/houses");
+    final uri1 = Uri.https(_baseUrl, UnencodedPath.BED);
+    final uri2 = Uri.https(_baseUrl, UnencodedPath.HOUSE);
     final client = http.Client();
 
     final responses;
@@ -59,7 +78,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getBowls() async {
-    final uri = Uri.https(_baseUrl, "/bowls");
+    final uri = Uri.https(_baseUrl, UnencodedPath.BOWL);
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -78,7 +97,7 @@ class ProductRepository {
   }
 
   Future<List<Product>> getCollars() async {
-    final uri = Uri.https(_baseUrl, "/collars");
+    final uri = Uri.https(_baseUrl, UnencodedPath.COLLAR);
     final client = http.Client();
     final response = await client.get(uri);
     final json = jsonDecode(response.body) as List;
@@ -117,6 +136,9 @@ class ProductRepository {
         break;
       case CategoryTag.HOUSE:
         unencodedPath = UnencodedPath.HOUSE;
+        break;
+      case CategoryTag.TOPPICKS:
+        unencodedPath = UnencodedPath.TOPPICKS;
         break;
       default:
         throw ("An error occured in ProductRepository getSpecificProduct");

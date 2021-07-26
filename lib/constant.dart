@@ -19,3 +19,6 @@ const headerContainerDecoration = BoxDecoration(
     bottom: BorderSide(width: 0.85, color: Color(0xFFE1E1E1)),
   ),
 );
+
+const topPicksImageWidth = 265.0;
+const topPicksImageHeight = 385.0;

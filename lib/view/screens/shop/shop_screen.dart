@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,9 +14,13 @@ import '../../../logic/cubit/product_quantity_cubit.dart';
 import '../../../logic/cubit/global_pqc_cubit.dart';
 import '../../../logic/cubit/cart_cubit.dart';
 
-part 'widgets/shop_tab_bar.dart';
-part 'widgets/shop_tab_bar_view.dart';
-part 'widgets/product_category_tab.dart';
+part 'tabs_related/shop_tab_bar.dart';
+part 'tabs_related/shop_tab_bar_view.dart';
+part 'tabs_related/products_listed_tab.dart';
+part 'widgets/products_listed.dart';
+part 'widgets/top_picks_image.dart';
+part 'widgets/top_picks_item_details.dart';
+part 'widgets/top_picks_listed.dart';
 part 'widgets/shop_item.dart';
 part 'constants/tabs_info.dart';
 
@@ -26,7 +31,7 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController;
   late String headerText;
 
   @override
@@ -34,7 +39,7 @@ class _ShopScreenState extends State<ShopScreen>
     super.initState();
     _tabController =
         TabController(initialIndex: 0, length: tabsInfo.length, vsync: this);
-    headerText = tabTitles[_tabController.index];
+    updateHeaderText();
   }
 
   @override
@@ -45,8 +50,14 @@ class _ShopScreenState extends State<ShopScreen>
 
   void updateHeaderText() {
     setState(() {
-      headerText = tabTitles[_tabController.index];
+      headerText = chooseHeaderText(_tabController.index);
     });
+  }
+
+  String chooseHeaderText(int tabControllerIndex) {
+    return tabControllerIndex == 0
+        ? "Top Picks"
+        : tabTitles[tabControllerIndex];
   }
 
   @override

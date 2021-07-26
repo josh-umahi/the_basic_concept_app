@@ -32,10 +32,12 @@ class ProductsCubit extends Cubit<ProductsState> {
         case CategoryTag.HOUSE:
           products = await _productRepository.getBedsAndHouses();
           break;
+        case CategoryTag.TOPPICKS:
+          products = await _productRepository.getTopPicks();
+          break;
         default:
           products = [];
-          print(
-              "The default was reached in getProducts method of ProductsCubit");
+          print("default was reached in getProducts method of ProductsCubit");
           break;
       }
       emit(ProductsLoaded(products));

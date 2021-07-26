@@ -13,7 +13,9 @@ class ShopTabBarView extends StatelessWidget {
       children: tabCategories.map((tabCategory) {
         return BlocProvider<ProductsCubit>(
           create: (_) => createProductsCubit(tabCategory),
-          child: ProductCategoryTab(),
+          child: ProductsListedTab(
+            isTopPicks: tabCategory == CategoryTag.TOPPICKS,
+          ),
         );
       }).toList(),
     );

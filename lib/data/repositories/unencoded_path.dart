@@ -4,4 +4,5 @@ class UnencodedPath {
   static const BOWL = "/bowls";
   static const COLLAR = "/collars";
   static const HOUSE = "/houses";
+  static const TOPPICKS = "/top_picks";
 }
