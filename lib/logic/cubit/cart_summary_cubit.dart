@@ -5,7 +5,6 @@ import 'package:meta/meta.dart';
 
 import '../../data/models/product.dart';
 import '../../logic/cubit/products_cubit.dart';
-import '../../logic/cubit/global_pqc_cubit.dart';
 
 part 'cart_summary_state.dart';
 
@@ -17,14 +16,12 @@ enum QuantityAction {
 
 class CartSummaryCubit extends Cubit<CartSummaryState> {
   final ProductsCubit productsCubit;
-  final GlobalPQCsCubit globalPQCsCubit;
   late StreamSubscription productsStreamSubcsription;
 
-  CartSummaryCubit(
-    List<Product> products,
-    this.productsCubit,
-    this.globalPQCsCubit,
-  ) : super(CartSummaryState.fromProducts(products)) {
+  CartSummaryCubit({
+    required List<Product> products,
+    required this.productsCubit,
+  }) : super(CartSummaryState.fromProducts(products)) {
     productsStreamSubcsription = monitorProductsStreamSubcsription();
   }
 
@@ -57,7 +54,6 @@ class CartSummaryCubit extends Cubit<CartSummaryState> {
 
   @override
   Future<void> close() {
-    globalPQCsCubit.deregisterCartSummaryCubitInAll();
     productsStreamSubcsription.cancel();
     return super.close();
   }

@@ -2,14 +2,7 @@ part of '../cart_screen.dart';
 
 class CartItem extends StatelessWidget {
   final Product product;
-
-  /// We use BlocProvider.value whenever this product's productQuantityCubit
-  /// is contained in the GlobalPQCsCubit to ensure that its productQuantityCubit
-  /// remains open even after we've left the cart screen
-  final bool isInGlobalPQCsCubit;
-
-  const CartItem(Key key, this.product, this.isInGlobalPQCsCubit)
-      : super(key: key);
+  const CartItem(Key key, this.product) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +57,10 @@ class CartItem extends StatelessWidget {
             ],
           ),
           SizedBox(height: 15),
-          isInGlobalPQCsCubit
-              ? BlocProvider.value(
-                  value: productQuantityCubit,
-                  child: CartItemActionsRow(productQuantityCubit),
-                )
-              : BlocProvider<ProductQuantityCubit>(
-                  create: (_) => productQuantityCubit,
-                  child: CartItemActionsRow(productQuantityCubit),
-                ),
+          BlocProvider.value(
+            value: productQuantityCubit,
+            child: CartItemActionsRow(productQuantityCubit),
+          ),
           SizedBox(height: 10),
         ],
       ),

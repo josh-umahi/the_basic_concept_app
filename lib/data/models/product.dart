@@ -6,7 +6,7 @@ class Product {
   final String title;
   final String imageURL;
   final double priceAsDouble;
-  final String categoryAsStr;
+  final String categoryTitle;
   late ProductQuantityCubit productQuantityCubit;
 
   Product({
@@ -14,10 +14,8 @@ class Product {
     required this.title,
     required this.imageURL,
     required this.priceAsDouble,
-    required this.categoryAsStr,
-  }) {
-    productQuantityCubit = ProductQuantityCubit(id, categoryTag, priceAsDouble);
-  }
+    required this.categoryTitle,
+  });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     try {
@@ -25,14 +23,14 @@ class Product {
       final title = json["title"];
       final imageURL = json["imageURL"];
       final priceAsDouble = json["price"].toDouble();
-      final categoryAsStr = json["category"];
+      final categoryTitle = json["category"];
 
       return Product(
         id: id,
         title: title,
         imageURL: imageURL,
         priceAsDouble: priceAsDouble,
-        categoryAsStr: categoryAsStr,
+        categoryTitle: categoryTitle,
       );
     } catch (e) {
       throw (e);
@@ -44,7 +42,7 @@ class Product {
   }
 
   String get categoryTag {
-    switch (categoryAsStr) {
+    switch (categoryTitle) {
       case "apparel":
         return CategoryTag.APPAREL;
       case "bed":

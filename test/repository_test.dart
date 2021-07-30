@@ -44,10 +44,10 @@ void main() {
 }
 
 void printProducts(List<Product> products, String category) {
-  print(products[0].categoryAsStr.toUpperCase() + 'S');
+  print(products[0].categoryTitle.toUpperCase() + 'S');
 
   for (var product in products) {
-    expect(product.categoryAsStr, category);
+    expect(product.categoryTitle, category);
     print(product.toString());
   }
 }

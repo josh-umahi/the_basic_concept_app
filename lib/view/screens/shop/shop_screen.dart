@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +10,6 @@ import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
-import '../../../logic/cubit/global_pqc_cubit.dart';
 import '../../../logic/cubit/cart_cubit.dart';
 
 part 'tabs_related/shop_tab_bar.dart';
@@ -38,7 +36,7 @@ class _ShopScreenState extends State<ShopScreen>
   void initState() {
     super.initState();
     _tabController =
-        TabController(initialIndex: 0, length: tabsInfo.length, vsync: this);
+        TabController(initialIndex: 1, length: tabsInfo.length, vsync: this);
     updateHeaderText();
   }
 

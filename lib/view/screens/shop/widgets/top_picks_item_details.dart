@@ -17,12 +17,12 @@ class TopPicksItemDetails extends StatelessWidget {
           ),
           ProductPrice(product.price),
           SizedBox(height: 5),
-          BlocProvider<ProductQuantityCubit>(
-            create: (_) {
-              return product.productQuantityCubit..registerCartCubit(cartCubit);
-            },
-            child: ItemQuantity(width: 140),
-          ),
+          // BlocProvider<ProductQuantityCubit>(
+          //   create: (_) {
+          //     return product.productQuantityCubit..registerCartCubit(cartCubit);
+          //   },
+          //   child: ItemQuantity(width: 140),
+          // ),
         ],
       ),
     );

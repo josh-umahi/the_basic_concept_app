@@ -11,7 +11,6 @@ import '../../../logic/cubit/cart_cubit.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
 import '../../../logic/cubit/products_cubit.dart';
 import '../../../logic/cubit/cart_summary_cubit.dart';
-import '../../../logic/cubit/global_pqc_cubit.dart';
 import '../../../view/global_widgets/item_quantity.dart';
 
 part 'widgets/cart_item.dart';
@@ -22,11 +21,16 @@ part 'widgets/empty_cart.dart';
 
 const heightOfButtonPlusBottomMargin = 85.0;
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  List<ProductQuantityCubit> _allProductQuantityCubits = [];
+
   @override
   Widget build(BuildContext context) {
-    final idToPQC = createIdToPQC(context.read<GlobalPQCsCubit>());
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -71,29 +75,31 @@ class CartScreen extends StatelessWidget {
                   if (state is ProductsLoaded) {
                     final cartCubit = context.read<CartCubit>();
                     final products = state.products;
-                    for (var i = 0; i < products.length; i++) {
-                      final product = products[i];
-                      if (idToPQC.keys.contains(product.id)) {
-                        product.productQuantityCubit = idToPQC[product.id]!;
-                      }
-                      product.productQuantityCubit.registerCartCubit(cartCubit);
-                    }
+
+                    /// Purpose of assigning the productQuantityCubits here is to
+                    /// ensure that the CartSummaryCubit has sufficient data to
+                    /// enable it calculate the initial subtotal and quantity
+                    products.forEach((product) {
+                      product.productQuantityCubit = ProductQuantityCubit(
+                        id: product.id,
+                        categoryTag: product.categoryTag,
+                        priceAsDouble: product.priceAsDouble,
+                        cartCubit: cartCubit,
+                      );
+                      _allProductQuantityCubits
+                          .add(product.productQuantityCubit);
+                    });
 
                     return BlocProvider<CartSummaryCubit>(
                       create: (_) {
                         return CartSummaryCubit(
-                          products,
-                          context.read<ProductsCubit>(),
-                          context.read<GlobalPQCsCubit>(),
+                          products: products,
+                          productsCubit: context.read<ProductsCubit>(),
                         );
                       },
-                      child: Builder(
-                        builder: (context) {
-                          final quantityIsNotZero = context
-                                  .watch<CartSummaryCubit>()
-                                  .state
-                                  .quantity !=
-                              0;
+                      child: BlocBuilder<CartSummaryCubit, CartSummaryState>(
+                        builder: (context, state) {
+                          final quantityIsNotZero = state.quantity != 0;
 
                           return (quantityIsNotZero)
                               ? Stack(
@@ -108,7 +114,6 @@ class CartScreen extends StatelessWidget {
                                           (product) => CartItem(
                                             ValueKey(product.id),
                                             product,
-                                            idToPQC.keys.contains(product.id),
                                           ),
                                         ),
                                         CartSummaryContainer(),
@@ -139,12 +144,10 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-Map<String, ProductQuantityCubit> createIdToPQC(GlobalPQCsCubit cubit) {
-  final Map<String, ProductQuantityCubit> idToPQC = {};
-  cubit.state.forEach((productQuantityCubit) {
-    idToPQC[productQuantityCubit.id] = productQuantityCubit;
-  });
-  return idToPQC;
+  @override
+  void dispose() {
+    _allProductQuantityCubits.forEach((pqc) => pqc.close());
+    super.dispose();
+  }
 }

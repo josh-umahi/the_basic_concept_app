@@ -48,8 +48,13 @@ class ShopItem extends StatelessWidget {
                   Spacer(),
                   BlocProvider<ProductQuantityCubit>(
                     create: (_) {
-                      return product.productQuantityCubit
-                        ..registerCartCubit(cartCubit);
+                      return product.productQuantityCubit =
+                          ProductQuantityCubit(
+                        id: product.id,
+                        categoryTag: product.categoryTag,
+                        priceAsDouble: product.priceAsDouble,
+                        cartCubit: cartCubit,
+                      );
                     },
                     child: ItemQuantity(width: 140),
                   ),

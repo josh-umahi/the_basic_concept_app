@@ -7,39 +7,22 @@ class ProductQuantityCubit extends Cubit<int> {
   final String id;
   final String categoryTag;
   final double priceAsDouble;
-  late CartCubit cartCubit;
+  final CartCubit cartCubit;
   CartSummaryCubit? cartSummaryCubit;
 
-  ProductQuantityCubit(
-    this.id,
-    this.categoryTag,
-    this.priceAsDouble,
-  ) : super(0);
+  ProductQuantityCubit({
+    required this.id,
+    required this.categoryTag,
+    required this.priceAsDouble,
+    required this.cartCubit,
+  }) : super(0) {
+    updateWithCartValues();
+  }
 
-  void registerCartCubit(CartCubit cartCubit) {
-    this.cartCubit = cartCubit;
+  void updateWithCartValues() {
     final cart = cartCubit.state;
     if (cart.idToQuantity.containsKey(id)) {
       emit(cart.idToQuantity[id]!);
-    }
-  }
-
-  void registerCartSummaryCubit(CartSummaryCubit cubit) {
-    cartSummaryCubit = cubit;
-  }
-
-  void deregisterCartSummaryCubit() {
-    cartSummaryCubit = null;
-  }
-
-  void updateExternalCubits(QuantityAction action) {
-    cartCubit.replaceCart(id, state, categoryTag);
-    if (cartSummaryCubit != null) {
-      cartSummaryCubit!.updateCartSummary(
-        action,
-        priceAsDouble,
-        idToRemove: action == QuantityAction.DECREMENTTOZERO ? id : null,
-      );
     }
   }
 
@@ -60,9 +43,24 @@ class ProductQuantityCubit extends Cubit<int> {
     updateExternalCubits(QuantityAction.DECREMENTTOZERO);
   }
 
-  // @override
-  // Future<void> close() {
-  //   print("ProductQuantityCubit with id: $id close()");
-  //   return super.close();
-  // }
+  void updateExternalCubits(QuantityAction action) {
+    cartCubit.replaceCart(id, state, categoryTag);
+    if (cartSummaryCubit != null) {
+      cartSummaryCubit!.updateCartSummary(
+        action,
+        priceAsDouble,
+        idToRemove: action == QuantityAction.DECREMENTTOZERO ? id : null,
+      );
+    }
+  }
+
+  void registerCartSummaryCubit(CartSummaryCubit cubit) {
+    cartSummaryCubit = cubit;
+  }
+
+  @override
+  Future<void> close() async {
+    cartSummaryCubit = null;
+    return super.close();
+  }
 }
