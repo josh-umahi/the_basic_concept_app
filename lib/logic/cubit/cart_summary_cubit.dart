@@ -46,6 +46,7 @@ class CartSummaryCubit extends Cubit<CartSummaryState> {
 
   StreamSubscription<ProductsState> monitorProductsStreamSubcsription() {
     return productsCubit.stream.listen((productsState) {
+      print("The productsCubit stream received new state");
       if (productsState is ProductsLoaded) {
         emit(CartSummaryState.fromProducts(productsState.products));
       }

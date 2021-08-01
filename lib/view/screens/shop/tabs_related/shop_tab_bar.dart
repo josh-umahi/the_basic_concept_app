@@ -20,7 +20,12 @@ class ShopTabBar extends StatelessWidget {
       ),
       isScrollable: true,
       tabs: _buildTabs(),
-      onTap: (i) => onTapEvent(),
+      onTap: (i) {
+        onTapEvent();
+        context
+            .read<ShopScreenPageCubit>()
+            .registerCategoryTag(tabCategories[i]);
+      },
     );
   }
 

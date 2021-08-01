@@ -10,6 +10,10 @@ class ProductsListedTab extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductsLoaded) {
           final products = state.products;
+          final currentProductsCubit = context.read<ProductsCubit>();
+          context
+              .read<ShopScreenPageCubit>()
+              .registerProductsCubit(currentProductsCubit);
 
           return isTopPicks
               ? TopPicksListed(products)

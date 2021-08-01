@@ -1,8 +1,8 @@
 part of '../cart_screen.dart';
 
 class CartItemActionsRow extends StatelessWidget {
-  final ProductQuantityCubit productQuantityCubit;
-  const CartItemActionsRow(this.productQuantityCubit);
+  final int animatedListItemIndex;
+  const CartItemActionsRow(this.animatedListItemIndex);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,35 @@ class CartItemActionsRow extends StatelessWidget {
       children: [
         ItemQuantity(width: 170, isInCart: true),
         GestureDetector(
-          onTap: () => productQuantityCubit.decrementToZero(),
+          onTap: () {
+            // TODO: Animate removal before doing the whole rerender ish
+            // AnimatedList.of(context).removeItem(
+            //   animatedListItemIndex,
+            //   (context, animation) {
+            //     return SlideTransition(
+            //       position: animation.drive(
+            //         Tween(
+            //           begin: Offset(0, 0),
+            //           end: Offset(1, 0),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // );
+
+            // AnimatedList.of(context).removeItem(
+            //   animatedListItemIndex,
+            //   (context, animation) {
+            //     return CartItem(
+            //       ValueKey(product.id),
+            //       product,
+            //       animation,
+            //       animatedListItemIndex,
+            //     );
+            //   },
+            // );
+            // context.read<ProductQuantityCubit>().decrementToZero();
+          },
           child: Text(
             "REMOVE ITEM",
             style: TextStyle(

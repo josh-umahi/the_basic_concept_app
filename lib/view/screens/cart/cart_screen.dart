@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constant.dart';
-import '../../global_widgets/custom_texts.dart';
-import '../../global_widgets/loading_linear_progress.dart';
-import '../../global_widgets/internet_error_container.dart';
-import '../../global_widgets/item_quantity.dart';
 import '../../../data/models/product.dart';
 import '../../../logic/cubit/cart_cubit.dart';
+import '../../../logic/cubit/cart_summary_cubit.dart';
 import '../../../logic/cubit/product_quantity_cubit.dart';
 import '../../../logic/cubit/products_cubit.dart';
-import '../../../logic/cubit/cart_summary_cubit.dart';
+import '../../../logic/cubit/shop_screen_page_cubit.dart';
 import '../../../view/global_widgets/item_quantity.dart';
+import '../../global_widgets/custom_texts.dart';
+import '../../global_widgets/internet_error_container.dart';
+import '../../global_widgets/item_quantity.dart';
+import '../../global_widgets/loading_linear_progress.dart';
 
 part 'widgets/cart_item.dart';
-part 'widgets/cart_summary_container.dart';
-part 'widgets/nav_to_checkout_button.dart';
 part 'widgets/cart_item_actions_row.dart';
+part 'widgets/cart_summary_container.dart';
 part 'widgets/empty_cart.dart';
+part 'widgets/nav_to_checkout_button.dart';
 
 const heightOfButtonPlusBottomMargin = 85.0;
 
@@ -36,7 +37,10 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           AppBarSideSizedBox,
           GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {
+              context.read<ShopScreenPageCubit>().reloadPage();
+              Navigator.of(context).pop();
+            },
             child: Icon(
               Icons.arrow_back_ios,
               size: appBarLeftActionSize,
@@ -104,25 +108,34 @@ class _CartScreenState extends State<CartScreen> {
                           return (quantityIsNotZero)
                               ? Stack(
                                   children: [
-                                    ListView(
+                                    AnimatedList(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: ourPaddingHorizontal,
                                         vertical: ourPaddingVertical,
                                       ),
-                                      children: [
-                                        ...products.map(
-                                          (product) => CartItem(
+                                      initialItemCount: products.length + 2,
+                                      itemBuilder: (context, i, animation) {
+                                        if (i < products.length) {
+                                          final product = products[i];
+                                          return CartItem(
                                             ValueKey(product.id),
                                             product,
-                                          ),
-                                        ),
-                                        CartSummaryContainer(),
-                                        SizedBox(
-                                          height:
-                                              heightOfButtonPlusBottomMargin *
-                                                  1.4,
-                                        ),
-                                      ],
+                                            animation,
+                                            i,
+                                          );
+                                        } else {
+                                          switch (i - products.length) {
+                                            case 0:
+                                              return CartSummaryContainer();
+                                            default:
+                                              return SizedBox(
+                                                height:
+                                                    heightOfButtonPlusBottomMargin *
+                                                        1.3,
+                                              );
+                                          }
+                                        }
+                                      },
                                     ),
                                     NavToCheckoutButton(),
                                   ],
