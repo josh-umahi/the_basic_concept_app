@@ -7,7 +7,7 @@ class ProductsListed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartCubit = context.read<CartCubit>();
-
+    
     return ListView.builder(
       padding: const EdgeInsets.symmetric(
         horizontal: ourPaddingHorizontal,

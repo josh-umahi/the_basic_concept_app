@@ -114,17 +114,17 @@ class _CartScreenState extends State<CartScreen> {
                                         vertical: ourPaddingVertical,
                                       ),
                                       initialItemCount: products.length + 2,
-                                      itemBuilder: (context, i, animation) {
-                                        if (i < products.length) {
-                                          final product = products[i];
+                                      itemBuilder: (context, index, animation) {
+                                        if (index < products.length) {
+                                          final product = products[index];
                                           return CartItem(
-                                            ValueKey(product.id),
-                                            product,
-                                            animation,
-                                            i,
+                                            key: ValueKey(product.id),
+                                            product: product,
+                                            animation: animation,
+                                            animatedListItemIndex: index,
                                           );
                                         } else {
-                                          switch (i - products.length) {
+                                          switch (index - products.length) {
                                             case 0:
                                               return CartSummaryContainer();
                                             default:

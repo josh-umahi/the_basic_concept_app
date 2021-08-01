@@ -7,7 +7,8 @@ import '../utils/cart_shared_preferences.dart';
 import 'view/router/app_router.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Gives us access to native code like local storage
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Gives us access to native code like local storage
   await CartSharedPreferences.init();
 
   await SystemChrome.setPreferredOrientations([
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     return BlocProvider<CartCubit>(
       create: (_) {
         final initialCartString = CartSharedPreferences.getCartString();
-        return CartCubit(initialCartString!);
+        return CartCubit(initialCartString);
       },
       child: MaterialApp(
         title: 'The Basic Concept',

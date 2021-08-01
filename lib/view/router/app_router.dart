@@ -11,13 +11,13 @@ class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider.value(
-      //       value: _shopScreenPageCubit,
-      //       child: ShopScreen(),
-      //     ),
-      //   );
-      // case '/cart':
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: _shopScreenPageCubit,
+            child: ShopScreen(),
+          ),
+        );
+      case '/cart':
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _shopScreenPageCubit,

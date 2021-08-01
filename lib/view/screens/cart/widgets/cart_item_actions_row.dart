@@ -1,44 +1,44 @@
 part of '../cart_screen.dart';
 
 class CartItemActionsRow extends StatelessWidget {
+  final Product product;
+  final Animation<double> animation;
   final int animatedListItemIndex;
-  const CartItemActionsRow(this.animatedListItemIndex);
+
+  const CartItemActionsRow(
+    this.product,
+    this.animation,
+    this.animatedListItemIndex,
+  );
+
+  void removeAnimatedListItem(BuildContext context) {
+    return AnimatedList.of(context).removeItem(
+      animatedListItemIndex,
+      (context, animation) {
+        return CartItem(
+          key: ValueKey(product.id),
+          product: product,
+          animation: animation,
+          animatedListItemIndex: animatedListItemIndex,
+        );
+      },
+      duration: Duration(milliseconds: 350),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ItemQuantity(width: 170, isInCart: true),
+        ItemQuantity(
+          isInCart: true,
+          removeAnimatedListItem: removeAnimatedListItem,
+        ),
         GestureDetector(
           onTap: () {
-            // TODO: Animate removal before doing the whole rerender ish
-            // AnimatedList.of(context).removeItem(
-            //   animatedListItemIndex,
-            //   (context, animation) {
-            //     return SlideTransition(
-            //       position: animation.drive(
-            //         Tween(
-            //           begin: Offset(0, 0),
-            //           end: Offset(1, 0),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // );
-
-            // AnimatedList.of(context).removeItem(
-            //   animatedListItemIndex,
-            //   (context, animation) {
-            //     return CartItem(
-            //       ValueKey(product.id),
-            //       product,
-            //       animation,
-            //       animatedListItemIndex,
-            //     );
-            //   },
-            // );
-            // context.read<ProductQuantityCubit>().decrementToZero();
+            removeAnimatedListItem(context);
+            context.read<ProductQuantityCubit>().decrementToZero();
           },
           child: Text(
             "REMOVE ITEM",

@@ -4,21 +4,26 @@ class CartItem extends StatelessWidget {
   final Product product;
   final Animation<double> animation;
   final int animatedListItemIndex;
-  const CartItem(
-    Key key,
-    this.product,
-    this.animation,
-    this.animatedListItemIndex,
-  ) : super(key: key);
+
+  const CartItem({
+    required Key key,
+    required this.product,
+    required this.animation,
+    required this.animatedListItemIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final cartSummaryCubit = context.read<CartSummaryCubit>();
     final productQuantityCubit = product.productQuantityCubit
       ..registerCartSummaryCubit(cartSummaryCubit);
-
-    return ScaleTransition(
-      scale: animation,
+    return SlideTransition(
+      position: animation.drive(
+        Tween(
+          begin: Offset(1, 0),
+          end: Offset(0, 0),
+        ),
+      ),
       child: Container(
         margin: const EdgeInsets.only(bottom: ourPaddingVertical),
         decoration: BoxDecoration(
@@ -68,7 +73,11 @@ class CartItem extends StatelessWidget {
             SizedBox(height: 15),
             BlocProvider.value(
               value: productQuantityCubit,
-              child: CartItemActionsRow(animatedListItemIndex),
+              child: CartItemActionsRow(
+                product,
+                animation,
+                animatedListItemIndex,
+              ),
             ),
             SizedBox(height: 10),
           ],

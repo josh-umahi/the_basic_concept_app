@@ -56,7 +56,7 @@ class ShopItem extends StatelessWidget {
                         cartCubit: cartCubit,
                       );
                     },
-                    child: ItemQuantity(width: 140),
+                    child: ItemQuantity(),
                   ),
                 ],
               ),

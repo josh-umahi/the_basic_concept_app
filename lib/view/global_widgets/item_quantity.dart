@@ -12,16 +12,24 @@ Border customBorders([Color color = ourLightGrey]) {
 }
 
 class ItemQuantity extends StatelessWidget {
-  final double width;
   final bool isInCart;
+  final Function(BuildContext context)? removeAnimatedListItem;
 
-  const ItemQuantity({
-    required this.width,
+  ItemQuantity({
     this.isInCart = false,
-  });
+    this.removeAnimatedListItem,
+  }) {
+    if (isInCart == false) {
+      assert(removeAnimatedListItem == null);
+    } else {
+      assert(removeAnimatedListItem != null);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final width = isInCart ? 170.0 : 140.0;
+    
     return Container(
       height: 40,
       width: width,
@@ -36,6 +44,7 @@ class ItemQuantity extends StatelessWidget {
                 action: context.read<ProductQuantityCubit>().decrement,
                 isOnLeft: true,
                 showDeleteButton: isInCart && state == 1,
+                removeAnimatedListItem: removeAnimatedListItem,
               ),
               Container(
                 width: 0.4 * width,
@@ -75,14 +84,20 @@ class QuantityButton extends StatelessWidget {
   final void Function() action;
   final bool isOnLeft;
   final bool showDeleteButton;
+  final Function(BuildContext context)? removeAnimatedListItem;
 
-  const QuantityButton({
+  QuantityButton({
     required this.unicodeString,
     required this.widthOfParent,
     required this.action,
     this.isOnLeft = false,
     this.showDeleteButton = false,
-  });
+    this.removeAnimatedListItem,
+  }) {
+    if (showDeleteButton == true) {
+      assert(removeAnimatedListItem != null);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +105,14 @@ class QuantityButton extends StatelessWidget {
     final borderRadius = Radius.circular(5);
 
     return GestureDetector(
-      onTap: () => !showDeleteButton
-          ? action()
-          : context.read<ProductQuantityCubit>().decrementToZero(),
+      onTap: () {
+        if (!showDeleteButton) {
+          action();
+        } else {
+          removeAnimatedListItem!(context);
+          context.read<ProductQuantityCubit>().decrementToZero();
+        }
+      },
       child: Container(
         width: width,
         alignment: Alignment.center,
