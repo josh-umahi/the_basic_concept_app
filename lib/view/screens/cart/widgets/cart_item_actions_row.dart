@@ -22,7 +22,7 @@ class CartItemActionsRow extends StatelessWidget {
           animatedListItemIndex: animatedListItemIndex,
         );
       },
-      duration: Duration(milliseconds: 350),
+      duration: Duration(milliseconds: 200),
     );
   }
 
