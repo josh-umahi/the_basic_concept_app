@@ -4,7 +4,7 @@ part of 'shop_screen_page_cubit.dart';
 class ShopScreenPageState extends Equatable {
   final ProductsCubit? productsCubit;
   final String? categoryTag;
-  ShopScreenPageState({this.productsCubit, this.categoryTag});
+  const ShopScreenPageState({this.productsCubit, this.categoryTag});
 
   ShopScreenPageState copyWith({
     ProductsCubit? productsCubit,

@@ -25,6 +25,8 @@ part 'widgets/top_picks_item_details.dart';
 part 'widgets/top_picks_listed.dart';
 
 class ShopScreen extends StatefulWidget {
+  const ShopScreen({Key? key}) : super(key: key);
+
   @override
   _ShopScreenState createState() => _ShopScreenState();
 }
@@ -75,21 +77,24 @@ class _ShopScreenState extends State<ShopScreen>
       appBar: AppBar(
         actions: [
           AppBarSideSizedBox,
-          Icon(
+          const Icon(
             Icons.account_circle_outlined,
             size: appBarLeftActionSize,
+            color: Colors.black,
           ),
-          Spacer(),
-          Icon(
+          const Spacer(),
+          const Icon(
             Icons.search,
             size: appBarRightActionSize,
+            color: Colors.black,
           ),
           AppBarMiddleSizedBox,
           GestureDetector(
             onTap: () => Navigator.of(context).pushNamed("/cart"),
-            child: Icon(
+            child: const Icon(
               Icons.shopping_cart,
               size: appBarRightActionSize,
+              color: Colors.black,
             ),
           ),
           AppBarSideSizedBox,
@@ -120,7 +125,7 @@ class _ShopScreenState extends State<ShopScreen>
                     onTapEvent: updateHeaderText,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           ),

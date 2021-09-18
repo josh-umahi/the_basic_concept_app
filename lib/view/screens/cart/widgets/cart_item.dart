@@ -20,13 +20,13 @@ class CartItem extends StatelessWidget {
     return SlideTransition(
       position: animation.drive(
         Tween(
-          begin: Offset(1, 0),
-          end: Offset(0, 0),
+          begin: const Offset(1, 0),
+          end: const Offset(0, 0),
         ),
       ),
       child: Container(
         margin: const EdgeInsets.only(bottom: ourPaddingVertical),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 0.5, color: ourDarkGrey),
           ),
@@ -45,7 +45,7 @@ class CartItem extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.25),
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                         blurRadius: 2,
                       ),
                     ],
@@ -58,7 +58,7 @@ class CartItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class CartItem extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             BlocProvider.value(
               value: productQuantityCubit,
               child: CartItemActionsRow(
@@ -79,7 +79,7 @@ class CartItem extends StatelessWidget {
                 animatedListItemIndex,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ),

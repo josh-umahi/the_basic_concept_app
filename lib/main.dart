@@ -20,12 +20,14 @@ Future main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  var _appRouter;
+  dynamic _appRouter;
 
   @override
   void initState() {
@@ -44,10 +46,10 @@ class _MyAppState extends State<MyApp> {
         title: 'The Basic Concept',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
-          primaryIconTheme: IconThemeData(
+          primaryIconTheme: const IconThemeData(
             color: Colors.black,
           ),
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             elevation: 0,
           ),

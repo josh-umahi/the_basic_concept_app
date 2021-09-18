@@ -3,10 +3,11 @@ part of '../shop_screen.dart';
 class ShopTabBar extends StatelessWidget {
   final TabController tabController;
   final void Function() onTapEvent;
-  ShopTabBar({
+  const ShopTabBar({
+    Key? key,
     required this.tabController,
     required this.onTapEvent,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class ShopTabBar extends StatelessWidget {
           (tabTitle) => Tab(
             child: Text(
               tabTitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Nunito",
                 fontSize: 16.0,
                 fontWeight: FontWeight.w700,

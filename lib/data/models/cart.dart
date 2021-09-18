@@ -47,11 +47,11 @@ class Cart {
     final Map<String, int> idToQuantity = {};
     final Map<String, String> idToCategoryTag = {};
 
-    cartAsString.forEach((cartItemAsString) {
+    for (var cartItemAsString in cartAsString) {
       final elem = cartItemAsString.split(",");
       idToQuantity[elem[0]] = int.parse(elem[1]);
       idToCategoryTag[elem[0]] = elem[2];
-    });
+    }
 
     return Cart(idToQuantity, idToCategoryTag);
   }

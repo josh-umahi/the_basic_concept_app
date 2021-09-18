@@ -1,7 +1,7 @@
 part of '../cart_screen.dart';
 
 class CartSummaryContainer extends StatelessWidget {
-  const CartSummaryContainer();
+   const CartSummaryContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class CartSummaryContainer extends StatelessWidget {
         final quantity = state.quantity.toString();
 
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding:const EdgeInsets.symmetric(horizontal: 20),
           width: double.infinity,
           height: 113,
           decoration: BoxDecoration(

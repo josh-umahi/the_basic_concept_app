@@ -31,7 +31,7 @@ class AppRouter {
 
   static Route _errorRoute() {
     return MaterialPageRoute(
-      builder: (context) => Scaffold(
+      builder: (context) => const Scaffold(
         body: Center(
           child: Text("PAGE NOT FOUND"),
         ),

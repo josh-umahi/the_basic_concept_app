@@ -3,7 +3,7 @@ part of '../shop_screen.dart';
 class ShopItem extends StatelessWidget {
   final Product product;
   final CartCubit cartCubit;
-  const ShopItem(this.product, this.cartCubit);
+  const ShopItem(this.product, this.cartCubit, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ShopItem extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.25),
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                   blurRadius: 2,
                 ),
               ],
@@ -35,17 +35,17 @@ class ShopItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
-            child: Container(
+            child: SizedBox(
               height: 170,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   ProductTitle(product.title, maxLines: 3),
                   ProductPrice(product.price),
-                  Spacer(),
+                  const Spacer(),
                   BlocProvider<ProductQuantityCubit>(
                     create: (_) {
                       return product.productQuantityCubit =
