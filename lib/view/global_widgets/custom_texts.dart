@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class HeaderText extends StatelessWidget {
@@ -11,7 +13,7 @@ class HeaderText extends StatelessWidget {
       child: Text(
         text,
         maxLines: 1,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 24,
           fontWeight: FontWeight.w700,
@@ -32,7 +34,7 @@ class ProductTitle extends StatelessWidget {
       text,
       maxLines: maxLines ?? 2,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black,
         fontSize: 20,
         fontFamily: "Avenir",
@@ -50,7 +52,7 @@ class ProductPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(0xFFFC55A7),
         fontSize: 20,
         fontFamily: "Avenir",

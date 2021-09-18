@@ -6,10 +6,9 @@ class CartItemActionsRow extends StatelessWidget {
   final int animatedListItemIndex;
 
   const CartItemActionsRow(
-    this.product,
-    this.animation,
-    this.animatedListItemIndex,
-  );
+      this.product, this.animation, this.animatedListItemIndex,
+      {Key? key})
+      : super(key: key);
 
   void removeAnimatedListItem(BuildContext context) {
     return AnimatedList.of(context).removeItem(
@@ -22,7 +21,7 @@ class CartItemActionsRow extends StatelessWidget {
           animatedListItemIndex: animatedListItemIndex,
         );
       },
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
     );
   }
 
@@ -40,7 +39,7 @@ class CartItemActionsRow extends StatelessWidget {
             removeAnimatedListItem(context);
             context.read<ProductQuantityCubit>().decrementToZero();
           },
-          child: Text(
+          child: const Text(
             "REMOVE ITEM",
             style: TextStyle(
               color: ourDarkGrey,

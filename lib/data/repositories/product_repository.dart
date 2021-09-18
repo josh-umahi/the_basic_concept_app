@@ -21,7 +21,7 @@ class ProductRepository {
       }
       return topPicks;
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }
@@ -40,7 +40,7 @@ class ProductRepository {
       }
       return apparels;
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }
@@ -58,7 +58,7 @@ class ProductRepository {
         client.get(uri2),
       ]);
     } catch (e) {
-      throw (e);
+      rethrow;
     }
 
     final jsonBeds = jsonDecode(responses[0].body) as List;
@@ -71,7 +71,7 @@ class ProductRepository {
       }
       return bedsandHouses;
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }
@@ -90,7 +90,7 @@ class ProductRepository {
       }
       return bowls;
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }
@@ -109,7 +109,7 @@ class ProductRepository {
       }
       return collars;
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }
@@ -153,7 +153,7 @@ class ProductRepository {
     try {
       return Product.fromJson(json);
     } catch (e) {
-      throw (e);
+      rethrow;
     } finally {
       client.close();
     }

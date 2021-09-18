@@ -3,7 +3,8 @@ part of '../shop_screen.dart';
 class TopPicksItemDetails extends StatelessWidget {
   final Product product;
   final CartCubit cartCubit;
-  const TopPicksItemDetails(this.product, this.cartCubit);
+  const TopPicksItemDetails(this.product, this.cartCubit, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +12,12 @@ class TopPicksItemDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             width: topPicksImageWidth,
             child: ProductTitle(product.title, maxLines: 2),
           ),
           ProductPrice(product.price),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           BlocProvider<ProductQuantityCubit>(
             create: (_) {
               return product.productQuantityCubit = ProductQuantityCubit(

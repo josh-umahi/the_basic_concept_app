@@ -33,7 +33,7 @@ class Product {
         categoryTitle: categoryTitle,
       );
     } catch (e) {
-      throw (e);
+      rethrow;
     }
   }
 

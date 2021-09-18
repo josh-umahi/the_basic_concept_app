@@ -1,6 +1,8 @@
 part of '../cart_screen.dart';
 
 class NavToCheckoutButton extends StatelessWidget {
+  const NavToCheckoutButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -14,7 +16,7 @@ class NavToCheckoutButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "To Checkout",
                 style: TextStyle(

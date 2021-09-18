@@ -2,7 +2,7 @@ part of '../shop_screen.dart';
 
 class TopPicksListed extends StatelessWidget {
   final List<Product> products;
-  const TopPicksListed(this.products);
+  const TopPicksListed(this.products, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TopPicksListed extends StatelessWidget {
               return Column(
                 children: [
                   TopPicksImage(product.imageURL),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TopPicksItemDetails(product, cartCubit),
                 ],
               );

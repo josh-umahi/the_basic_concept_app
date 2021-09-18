@@ -10,10 +10,10 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final _productRepository = ProductRepository();
-  ProductsCubit() : super(ProductsLoading());
+  ProductsCubit() : super(const ProductsLoading());
 
   Future<void> getProducts(String categoryTag) async {
-    emit(ProductsLoading());
+    emit(const ProductsLoading());
     try {
       final List<Product> products;
       switch (categoryTag) {
@@ -47,7 +47,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   Future<void> getCartProducts(Map<String, String> idToCategoryTag) async {
-    emit(ProductsLoading());
+    emit(const ProductsLoading());
     try {
       final List<Product> products =
           await _productRepository.getSpecificProducts(idToCategoryTag);

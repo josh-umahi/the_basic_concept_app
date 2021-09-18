@@ -1,6 +1,8 @@
 part of '../cart_screen.dart';
 
 class EmptyCart extends StatelessWidget {
+  const EmptyCart({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -8,7 +10,7 @@ class EmptyCart extends StatelessWidget {
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Text(
             "੨( ･᷄ ︵･᷅ )ｼ",
             style: TextStyle(

@@ -22,7 +22,7 @@ class ProductsLoaded extends ProductsState {
 }
 
 class ProductsError extends ProductsState {
-  final error;
+  final dynamic error;
   ProductsError(this.error) {
     print(error);
   }

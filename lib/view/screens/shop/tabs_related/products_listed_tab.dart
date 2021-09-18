@@ -2,7 +2,10 @@ part of '../shop_screen.dart';
 
 class ProductsListedTab extends StatelessWidget {
   final bool isTopPicks;
-  const ProductsListedTab({required this.isTopPicks});
+  const ProductsListedTab({
+    Key? key,
+    required this.isTopPicks,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

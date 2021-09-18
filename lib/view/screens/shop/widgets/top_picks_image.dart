@@ -2,7 +2,7 @@ part of '../shop_screen.dart';
 
 class TopPicksImage extends StatelessWidget {
   final String imageURL;
-  const TopPicksImage(this.imageURL);
+  const TopPicksImage(this.imageURL, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TopPicksImage extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.25),
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
             blurRadius: 2,
           ),
         ],

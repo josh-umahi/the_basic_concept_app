@@ -5,7 +5,7 @@ class CartSummaryState extends Equatable {
   final double subtotal;
   final int quantity;
 
-  CartSummaryState(this.subtotal, this.quantity);
+  const CartSummaryState(this.subtotal, this.quantity);
 
   factory CartSummaryState.fromProducts(List<Product> products) {
     return CartSummaryState(getSubtotal(products), getQuantity(products));

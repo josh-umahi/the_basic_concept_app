@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class InternetErrorContainer extends StatelessWidget {
@@ -13,7 +15,7 @@ class InternetErrorContainer extends StatelessWidget {
             Icons.wifi_off_sharp,
             color: Colors.orange[800],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             "NO NETWORK CONNECTION",
             textAlign: TextAlign.center,
