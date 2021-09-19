@@ -5,39 +5,15 @@ class NavToCheckoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return const Positioned(
       bottom: 0.4 * heightOfButtonPlusBottomMargin,
       left: 40,
       right: 40,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Container(
-          height: heightOfButtonPlusBottomMargin * 0.6,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                "To Checkout",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              )
-            ],
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          primary: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
-          ),
-        ),
+      child: SubmitButton(
+        title: "To Checkout",
+        fontSize: 18,
+        hasArrowIcon: true,
+        height: heightOfButtonPlusBottomMargin * 0.6,
       ),
     );
   }

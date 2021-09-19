@@ -60,7 +60,7 @@ class ItemQuantity extends StatelessWidget {
                 child: Text(
                   state.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),

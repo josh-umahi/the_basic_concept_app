@@ -13,6 +13,7 @@ import '../../global_widgets/custom_texts.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
+import '../../global_widgets/view_profile_button.dart';
 
 part 'constants/tabs_info.dart';
 part 'tabs_related/products_listed_tab.dart';
@@ -77,11 +78,7 @@ class _ShopScreenState extends State<ShopScreen>
       appBar: AppBar(
         actions: [
           AppBarSideSizedBox,
-          const Icon(
-            Icons.account_circle_outlined,
-            size: appBarLeftActionSize,
-            color: Colors.black,
-          ),
+          const ViewProfileButton(),
           const Spacer(),
           const Icon(
             Icons.search,

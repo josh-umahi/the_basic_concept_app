@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_basic_concept_app/view/global_widgets/view_profile_button.dart';
 
 import '../../../constant.dart';
 import '../../../data/models/product.dart';
@@ -13,6 +14,7 @@ import '../../global_widgets/custom_texts.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
+import '../../global_widgets/submit_button.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/cart_item_actions_row.dart';
@@ -57,11 +59,7 @@ class _CartScreenState extends State<CartScreen> {
             color: Colors.black,
           ),
           AppBarMiddleSizedBox,
-          const Icon(
-            Icons.account_circle_outlined,
-            size: appBarRightActionSize,
-            color: Colors.black,
-          ),
+          const ViewProfileButton(),
           AppBarSideSizedBox,
         ],
       ),
