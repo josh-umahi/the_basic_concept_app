@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:the_basic_concept_app/logic/blocs/shop_screen_page_cubit.dart';
+import 'package:the_basic_concept_app/logic/providers/auth_provider.dart';
 
-import '../logic/cubit/cart_cubit.dart';
+import '../logic/blocs/cart_cubit.dart';
 import '../utils/cart_shared_preferences.dart';
 import 'view/router/app_router.dart';
 
@@ -16,7 +19,7 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -37,11 +40,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CartCubit>(
-      create: (_) {
-        final initialCartString = CartSharedPreferences.getCartString();
-        return CartCubit(initialCartString);
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(),
+        ),
+        BlocProvider<CartCubit>(
+          create: (_) {
+            final initialCartString = CartSharedPreferences.getCartString();
+            return CartCubit(initialCartString);
+          },
+        ),
+        BlocProvider<ShopScreenPageCubit>(
+          create: (_) => ShopScreenPageCubit(),
+        ),
+      ],
       child: MaterialApp(
         title: 'The Basic Concept',
         theme: ThemeData(

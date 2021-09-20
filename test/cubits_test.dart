@@ -3,7 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 
-import '../lib/logic/cubit/products_cubit.dart';
+import '../lib/logic/blocs/products_cubit.dart';
 import '../lib/data/models/product.dart';
 import '../lib/data/models/category_tag.dart';
 import '../lib/data/repositories/product_repository.dart';

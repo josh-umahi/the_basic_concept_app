@@ -14,6 +14,7 @@ class NavToCheckoutButton extends StatelessWidget {
         fontSize: 18,
         hasArrowIcon: true,
         height: heightOfButtonPlusBottomMargin * 0.6,
+        width: double.infinity,
       ),
     );
   }

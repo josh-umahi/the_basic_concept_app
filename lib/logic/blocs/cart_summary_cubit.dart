@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/models/product.dart';
-import '../../logic/cubit/products_cubit.dart';
+import 'products_cubit.dart';
 
 part 'cart_summary_state.dart';
 

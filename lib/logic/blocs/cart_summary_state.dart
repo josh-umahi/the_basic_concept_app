@@ -30,7 +30,7 @@ int getQuantity(List<Product> products) {
   int quantity = products.fold(
     0,
     (totalQuantity, product) {
-      return totalQuantity + product.productQuantityCubit.state;
+      return totalQuantity + product.productQuantityCubit.state as int;
     },
   );
   return quantity;

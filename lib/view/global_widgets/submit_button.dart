@@ -5,23 +5,29 @@ import 'package:flutter/material.dart';
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     required this.title,
-    this.fontSize = 16,
-    required this.hasArrowIcon,
+    this.fontSize,
     required this.height,
+    required this.width,
+    this.borderRadius,
+    required this.hasArrowIcon,
+    this.onPressed,
   });
 
   final String title;
-  final double fontSize;
+  final double? fontSize;
   final bool hasArrowIcon;
   final double height;
+  final double width;
+  final BorderRadius? borderRadius;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      child: Container(
-        height: height,
-        alignment: Alignment.center,
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        onPressed: onPressed ?? () {},
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,7 +35,7 @@ class SubmitButton extends StatelessWidget {
               title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: fontSize,
+                fontSize: fontSize ?? 16,
               ),
             ),
             hasArrowIcon
@@ -43,12 +49,12 @@ class SubmitButton extends StatelessWidget {
                 : const SizedBox()
           ],
         ),
-      ),
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        primary: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          primary: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ?? BorderRadius.circular(40),
+          ),
         ),
       ),
     );

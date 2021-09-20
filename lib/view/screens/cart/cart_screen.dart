@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_basic_concept_app/view/global_widgets/view_profile_button.dart';
 
 import '../../../constant.dart';
 import '../../../data/models/product.dart';
-import '../../../logic/cubit/cart_cubit.dart';
-import '../../../logic/cubit/cart_summary_cubit.dart';
-import '../../../logic/cubit/product_quantity_cubit.dart';
-import '../../../logic/cubit/products_cubit.dart';
-import '../../../logic/cubit/shop_screen_page_cubit.dart';
+import '../../../logic/blocs/cart_cubit.dart';
+import '../../../logic/blocs/cart_summary_cubit.dart';
+import '../../../logic/blocs/product_quantity_cubit.dart';
+import '../../../logic/blocs/products_cubit.dart';
+import '../../../logic/blocs/shop_screen_page_cubit.dart';
 import '../../../view/global_widgets/item_quantity.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/submit_button.dart';
+import '../../global_widgets/view_profile_button.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/cart_item_actions_row.dart';
@@ -26,6 +26,8 @@ const heightOfButtonPlusBottomMargin = 85.0;
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
+
+  static const String routeTitle = "/cartScreen";
 
   @override
   _CartScreenState createState() => _CartScreenState();

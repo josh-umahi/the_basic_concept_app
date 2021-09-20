@@ -71,7 +71,7 @@ class CartItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            BlocProvider.value(
+            BlocProvider<ProductQuantityCubit>.value(
               value: productQuantityCubit,
               child: CartItemActionsRow(
                 product,

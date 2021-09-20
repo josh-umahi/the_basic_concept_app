@@ -1,5 +1,5 @@
 import 'category_tag.dart';
-import '../../logic/cubit/product_quantity_cubit.dart';
+import '../../logic/blocs/product_quantity_cubit.dart';
 
 class Product {
   final String id;

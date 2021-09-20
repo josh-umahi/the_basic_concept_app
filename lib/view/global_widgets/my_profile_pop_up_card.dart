@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant.dart';
+import '../../logic/providers/auth_provider.dart';
 import 'submit_button.dart';
 
 class MyProfilePopUpCard extends StatelessWidget {
@@ -12,7 +14,7 @@ class MyProfilePopUpCard extends StatelessWidget {
     return Center(
       child: Material(
         elevation: 2,
-        color: ourLightGrey,
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
@@ -22,16 +24,16 @@ class MyProfilePopUpCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "You’re Signed In",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 23,
                 ),
               ),
-              SizedBox(height: 5),
-              Text(
+              const SizedBox(height: 5),
+              const Text(
                 "cr7@gmail.com",
                 style: TextStyle(
                   color: secondaryColor,
@@ -39,14 +41,19 @@ class MyProfilePopUpCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 14),
-              SizedBox(
-                width: 235,
-                child: SubmitButton(
-                  title: "SIGN OUT",
-                  hasArrowIcon: true,
-                  height: 42,
-                ),
+              const SizedBox(height: 14),
+              SubmitButton(
+                title: "SIGN OUT",
+                hasArrowIcon: false,
+                height: 42,
+                width: 225,
+                onPressed: () {
+                  context.read<AuthProvider>().signOut();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/',
+                    (Route<dynamic> route) => false,
+                  );
+                },
               ),
             ],
           ),

@@ -5,15 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constant.dart';
 import '../../../data/models/category_tag.dart';
 import '../../../data/models/product.dart';
-import '../../../logic/cubit/cart_cubit.dart';
-import '../../../logic/cubit/product_quantity_cubit.dart';
-import '../../../logic/cubit/products_cubit.dart';
-import '../../../logic/cubit/shop_screen_page_cubit.dart';
+import '../../../logic/blocs/cart_cubit.dart';
+import '../../../logic/blocs/product_quantity_cubit.dart';
+import '../../../logic/blocs/products_cubit.dart';
+import '../../../logic/blocs/shop_screen_page_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
 import '../../global_widgets/internet_error_container.dart';
 import '../../global_widgets/item_quantity.dart';
 import '../../global_widgets/loading_linear_progress.dart';
 import '../../global_widgets/view_profile_button.dart';
+import '../cart/cart_screen.dart';
 
 part 'constants/tabs_info.dart';
 part 'tabs_related/products_listed_tab.dart';
@@ -27,6 +28,8 @@ part 'widgets/top_picks_listed.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({Key? key}) : super(key: key);
+
+  static const String routeTitle = "/shopScreen";
 
   @override
   _ShopScreenState createState() => _ShopScreenState();
@@ -87,7 +90,9 @@ class _ShopScreenState extends State<ShopScreen>
           ),
           AppBarMiddleSizedBox,
           GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed("/cart"),
+            onTap: () => Navigator.of(context).pushNamed(
+              CartScreen.routeTitle,
+            ),
             child: const Icon(
               Icons.shopping_cart,
               size: appBarRightActionSize,

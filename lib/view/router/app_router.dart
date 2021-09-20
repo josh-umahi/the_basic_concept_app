@@ -1,45 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
-import '../../logic/cubit/shop_screen_page_cubit.dart';
+import '../../logic/providers/auth_provider.dart';
 import '../screens/cart/cart_screen.dart';
 import '../screens/shop/shop_screen.dart';
+import '../screens/welcome/welcome_screen.dart';
 
 class AppRouter {
-  final _shopScreenPageCubit = ShopScreenPageCubit();
-
   Route generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: _shopScreenPageCubit,
-            child: ShopScreen(),
-          ),
-        );
-      case '/cart':
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: _shopScreenPageCubit,
-            child: CartScreen(),
-          ),
-        );
-      default:
-        return _errorRoute();
-    }
-  }
-
-  static Route _errorRoute() {
-    return MaterialPageRoute(
-      builder: (context) => const Scaffold(
-        body: Center(
-          child: Text("PAGE NOT FOUND"),
-        ),
-      ),
-    );
-  }
-
-  dispose() {
-    _shopScreenPageCubit.close();
+    return MaterialPageRoute(builder: (_) {
+      switch (settings.name) {
+        case '/':
+          return Consumer<AuthProvider>(
+            builder: (_, authProvider, __) {
+              if (authProvider.isAuthenticated) {
+                return const ShopScreen();
+              } else {
+                return const WelcomeScreen();
+              }
+            },
+          );
+        case CartScreen.routeTitle:
+          return const CartScreen();
+        default:
+          return const WelcomeScreen();
+      }
+    });
   }
 }
